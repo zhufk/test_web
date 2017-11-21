@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!--                 命名空间用于查找 -->
+  <mapper namespace="com.zfk.dao.UserMapper">
+     
+ 	 <!--     替代，语句中的内容,简写 -->
+     <sql id="cols">
+          id,name,age       
+     </sql>
+  	 <!--     查询所有记录 -->
+     <select id="listAllUser" resultType="com.zfk.entity.User">
+         select <include refid="cols"/> from   zfk_user      
+     </select>
+     
+ 	 <!--     查询一个用户 -->
+     <select id="getUser" parameterType="string" resultType="com.zfk.entity.User">
+         select <include refid="cols"/> from   zfk_user  where id= #{id}    
+     </select>
+     
+ 	 <!--     插入一个用户 -->
+     <insert id="insertUser" parameterType="com.zfk.entity.User" >
+         insert into zfk_user( <include refid="cols"/> ) values (#{id},#{name},#{age})    
+     </insert>
+     
+ 	 <!--     更新一个用户 -->
+     <insert id="updateUser" parameterType="com.zfk.entity.User" >
+         update zfk_user set name=#{name},age=#{age} where id=#{id}    
+     </insert>
+     
+     <!--     删除一个用户 -->
+     <update id="deleteUser" parameterType="string" >
+         delete from zfk_user where id= #{id}   
+     </update>
+ </mapper>

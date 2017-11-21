@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd 
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+
+	<!-- 我们主要利用Spring MVC来写Controller，每个Controller可以映射任意多个路径，利用注解来标注Controller非常方便和优雅， 
+		我们需要用到@Controller注解来指定Controller对象，用@RequestMapping来指定某方法映射某路径， ，，，，，，，，，，， 
+		这时只需要在spring-mvc.xml中加入<mvc:annotation-driven></mvc:annotation-driven>即可。 -->
+
+	<!-- 组件扫描 -->
+	<context:component-scan base-package="com.zfk">
+		<!-- 排除扫描service标签 -->
+		<!-- <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/> -->
+	</context:component-scan>
+
+
+	<!-- 当配置了<mvc:annotation-driven/>后，会自动加载org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping和 
+		org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter，所以如果显示的配置则需去掉配置<mvc:annotation-driven/> -->
+	<!--<mvc:annotation-driven/> -->
+
+
+	<!-- 视图解析器:定义跳转的文件的前后缀 -->
+	<!-- <bean id="viewResolver" -->
+	<!-- class="org.springframework.web.servlet.view.InternalResourceViewResolver"> -->
+	<!-- <property name="viewClass" -->
+	<!-- value="org.springframework.web.servlet.view.JstlView" /> -->
+	<!-- <property name="prefix" value="/WEB-INF/pages/" /> -->
+	<!-- <property name="suffix" value=".jsp" /> -->
+	<!-- </bean> -->
+
+
+	<!--配置拦截器, 多个拦截器,顺序执行 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<!-- 匹配的是url路径， 如果不配置或/**,将拦截所有的Controller -->
+			<!-- <mvc:mapping path="/" /> -->
+			<!-- <mvc:mapping path="/user/**" /> -->
+			<!-- <mvc:mapping path="/test/**" /> -->
+
+			<mvc:mapping path="/**" />
+			<bean class="com.zfk.interceptor.CommonInterceptor"></bean>
+		</mvc:interceptor>
+		<!-- 当设置多个拦截器时，先按顺序调用preHandle方法，然后逆序调用每个拦截器的postHandle和afterCompletion方法 -->
+	</mvc:interceptors>
+
+	<!-- 配置文件上传，如果没有使用文件上传可以不用配置，当然如果不配，那么配置文件中也不必引入上传组件包 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 默认编码 -->
+		<property name="defaultEncoding" value="utf-8" />
+		<!-- 文件大小最大值 -->
+		<property name="maxUploadSize" value="10485760000" />
+		<!-- 内存中的最大值 -->
+		<property name="maxInMemorySize" value="40960" />
+	</bean>
+
+</beans>

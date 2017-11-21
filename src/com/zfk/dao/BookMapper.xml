@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!--                 命名空间用于查找 -->
+  <mapper namespace="com.zfk.dao。BookMapper">
+  	 <!--     查询所有记录，数据库表字段和实体类属性对应不上，使用sql重命名使之对应上  -->
+     <select id="listAllBook" resultType="com.zfk.entity.Book">
+         select id,name,user_id userid from  zfk_book
+     </select>
+     
+     <!--     查询一本书-->
+     <select id="getBookById" parameterType="string" resultType="com.zfk.entity.Book">
+         select id,name,user_id userid from  zfk_book  where id= #{id}    
+     </select>
+     
+     
+ 	 <!--     查询一个人的书，数据库表“字段名”和实体类“属性名”对应不上，使用resultMap使之对应上,“bookResultMap”对应上-->
+     <select id="getBookByUserId" parameterType="string" resultMap="bookResultMap">
+         select id,name,user_id userid from  zfk_book  where user_id= #{id}    
+     </select>
+     
+     <resultMap type="com.zfk.entity.Book" id="bookResultMap">
+         <id property="id" column="id"/>
+         <result property="name" column="name"/>
+         <result property="userid" column="user_id"/>
+     </resultMap>
+     
+     
+     
+ 	 <!--     插入一本书-->
+     <insert id="insertBook" parameterType="com.zfk.entity.Book" >
+         insert into zfk_book(id,name,user_id) values (#{id},#{name},#{userId})    
+     </insert>
+     
+ 	 <!--     更新一本书-->
+     <insert id="updateBook" parameterType="com.zfk.entity.Book" >
+         update zfk_book set name=#{name},user_id=#{userId} where id=#{id}    
+     </insert>
+     
+     <!--     删除一本书-->
+     <update id="deleteBook" parameterType="string" >
+         delete from zfk_book where id= #{id}   
+     </update>
+ </mapper>

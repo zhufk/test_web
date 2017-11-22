@@ -268,13 +268,31 @@
 		<!-- <version>2.3.0</version> -->
 		<!-- </dependency> -->
 		
+		<!-- xbean 如<amq:connectionFactory /> -->
+        <dependency>
+            <groupId>org.apache.xbean</groupId>
+            <artifactId>xbean-spring</artifactId>
+            <version>4.2</version>
+        </dependency>
+		<!-- spring jms begin-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <!-- spring jms end-->
 		<!-- activemq begin -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.apache.activemq</groupId> -->
-<!-- 			<artifactId>activemq-all</artifactId> -->
-<!-- 			<version>5.15.0</version> -->
-<!-- 		</dependency> -->
-		<!-- activemq end -->
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-core</artifactId>
+            <version>5.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-pool</artifactId>
+            <version>5.15.0</version>
+        </dependency>
+        <!-- activemq end -->
 
 	</dependencies>
 

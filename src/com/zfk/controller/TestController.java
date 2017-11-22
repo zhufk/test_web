@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import javax.jms.Destination;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.activemq.command.ActiveMQQueue;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,21 +22,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/test")
 public class TestController {
-	
-	//@Resource
-	//ProducerService producerService;
-	
-	
-	@RequestMapping("/send")
-	@ResponseBody
-	public String test1(String message) {
-		
-//		Destination dest = new org.apache.activemq.command.ActiveMQQueue("q.one");
-//		producerService.sendMessage(message+"1");
-//		producerService.sendMessage(dest, message+"2");
-		
-		return "ok";
-	}
 	
 	@RequestMapping("/test1")
 	public String test1(HttpServletRequest request) {

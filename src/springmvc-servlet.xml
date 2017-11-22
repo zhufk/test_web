@@ -24,16 +24,37 @@
 	<!-- 当配置了<mvc:annotation-driven/>后，会自动加载org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping和 
 		org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter，所以如果显示的配置则需去掉配置<mvc:annotation-driven/> -->
 	<!--<mvc:annotation-driven/> -->
-
+	
+	<mvc:annotation-driven/>
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+	<!-- 返回编码 -->
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"
+          p:ignoreDefaultModelOnRedirect="true">
+        <property name="messageConverters">
+            <list>
+                <ref bean="mappingJsonHttpMessageConverter"/>
+            </list>
+        </property>
+    </bean>
+    <!-- 支持返回json -->
+    <bean id="mappingJsonHttpMessageConverter"
+          class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+        <property name="supportedMediaTypes">
+            <list>
+                <value>text/plain;charset=UTF-8</value>
+                <value>application/json;charset=UTF-8</value>
+            </list>
+        </property>
+    </bean>
 
 	<!-- 视图解析器:定义跳转的文件的前后缀 -->
-	<!-- <bean id="viewResolver" -->
-	<!-- class="org.springframework.web.servlet.view.InternalResourceViewResolver"> -->
-	<!-- <property name="viewClass" -->
-	<!-- value="org.springframework.web.servlet.view.JstlView" /> -->
-	<!-- <property name="prefix" value="/WEB-INF/pages/" /> -->
-	<!-- <property name="suffix" value=".jsp" /> -->
-	<!-- </bean> -->
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
 
 
 	<!--配置拦截器, 多个拦截器,顺序执行 -->
@@ -49,6 +70,14 @@
 		</mvc:interceptor>
 		<!-- 当设置多个拦截器时，先按顺序调用preHandle方法，然后逆序调用每个拦截器的postHandle和afterCompletion方法 -->
 	</mvc:interceptors>
+
+	<!-- 静态资源不过springmvc 设置一年缓存-->
+    <mvc:resources mapping="/static/public/js/**" location="/static/public/js/"/>
+    <mvc:resources mapping="/static/public/css/**" location="/static/public/css/"/>
+    <mvc:resources mapping="/static/public/img/**" location="/static/public/img/"/>
+    <mvc:resources mapping="/static/zfk/js/**" location="/static/zfk/js/"/>
+    <mvc:resources mapping="/static/zfk/csss/**" location="/static/zfk/css/"/>
+    <mvc:resources mapping="/static/zfk/img/**" location="/static/zfk/img/"/>
 
 	<!-- 配置文件上传，如果没有使用文件上传可以不用配置，当然如果不配，那么配置文件中也不必引入上传组件包 -->
 	<bean id="multipartResolver"

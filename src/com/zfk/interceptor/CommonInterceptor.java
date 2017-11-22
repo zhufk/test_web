@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 public class CommonInterceptor extends HandlerInterceptorAdapter {
-	private final Logger log = LoggerFactory.getLogger(CommonInterceptor.class);
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
 	/*
 	 * 利用正则映射到需要拦截的路径
@@ -27,22 +27,14 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		// if ("GET".equalsIgnoreCase(request.getMethod())) {
-		// RequestUtil.saveRequest();
-		// }
 		System.out.println("==============执行顺序: 1、preHandle================");
 		String requestUri = request.getRequestURI();
-		String contextPath = request.getContextPath();
-		String url = requestUri.substring(contextPath.length());
-
 		System.out.println("requestUri:" + requestUri);
-		System.out.println("contextPath:" + contextPath);
-		System.out.println("url:" + url);
 
 		String username = (String) request.getSession().getAttribute("user");
 		if (username == null) {
 			System.out.println("Interceptor：跳转到login页面！");
-			// request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request,
+			// request.getRequestDispatcher("login.jsp").forward(request,
 			// response);
 			return true;// false;
 		} else

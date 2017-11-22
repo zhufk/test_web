@@ -17,30 +17,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.zfk.service.mq.ProducerService;
 
 @Controller
 @RequestMapping("/test")
 public class TestController {
 	
 	//@Resource
-	ProducerService producerService;
+	//ProducerService producerService;
 	
 	
 	@RequestMapping("/send")
 	@ResponseBody
 	public String test1(String message) {
 		
-		Destination dest = new org.apache.activemq.command.ActiveMQQueue("q.one");
-		producerService.sendMessage(message+"1");
-		producerService.sendMessage(dest, message+"2");
+//		Destination dest = new org.apache.activemq.command.ActiveMQQueue("q.one");
+//		producerService.sendMessage(message+"1");
+//		producerService.sendMessage(dest, message+"2");
 		
 		return "ok";
 	}
 	
 	@RequestMapping("/test1")
 	public String test1(HttpServletRequest request) {
-		return "test1";
+		return "test";
 	}
 
 	@RequestMapping("/test2")

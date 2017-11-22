@@ -9,7 +9,10 @@
 	<!-- 指定配置文件路径 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath*:applicationContext.xml</param-value>
+		<param-value>
+			classpath*:applicationContext.xml
+<!-- 			classpath*:spring-activemq.xml -->
+		</param-value>
 	</context-param>
 	<!-- 配置ContextLoaderListener表示，该工程要以spring的方式启动。启动时会默认在/WEB-INF目录下查找applicationContext.xml 
 		作为spring容器的配置文件，该文件里可以初始化一些bean 现在开始准备配置Spring和Spring MVC的IOC容器。 。。。。。。。。。。。。 

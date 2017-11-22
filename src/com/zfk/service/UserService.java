@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.zfk.entity.User;
 
-public interface IUserService {
+public interface UserService {
 	public List<User> listAllUser();
 	
 	public List<User> listAllUser2();

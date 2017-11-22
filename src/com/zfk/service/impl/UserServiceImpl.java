@@ -1,4 +1,4 @@
-package com.zfk.service;
+package com.zfk.service.impl;
 
 import java.util.List;
 
@@ -10,9 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.zfk.dao.UserMapper;
 import com.zfk.dao.UserMapper2;
 import com.zfk.entity.User;
+import com.zfk.service.UserService;
 
-@Service("userService")
-public class UserService implements IUserService {
+@Service
+public class UserServiceImpl implements UserService {
 	@Resource
 	UserMapper userMapper;
 

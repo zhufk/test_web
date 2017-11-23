@@ -14,15 +14,6 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.Session;
 
-/**
- * <p>Description: </p>
- *
- * @author evan
- * @version 1.0.0
- * <p>Company:workway</p>
- * <p>Copyright:Copyright(c)2017-2018</p>
- * @date 2017/11/16
- */
 @Service
 public class ProducerServiceImpl implements ProducerService {
 
@@ -38,8 +29,25 @@ public class ProducerServiceImpl implements ProducerService {
      * @param msg
      */
     @Override
-    public void sendMessage(Destination destination, final String msg) {
-        logger.info("{} 向队列{} ,发送消息---------------------->", new Object[]{Thread.currentThread().getName(), destination.toString(), msg});
+    public void sendMessage(final String destination, final String msg) throws JMSException{
+        logger.info("发送消息------------->"+msg, new Object[]{Thread.currentThread().getName(), destination, msg});
+        jmsTemplate.send(destination, new MessageCreator() {
+            @Override
+            public Message createMessage(Session session) throws JMSException {
+                return session.createTextMessage(msg);
+            }
+        });
+    }
+    
+    /**
+     * 根据目的地发送消息
+     *
+     * @param destination
+     * @param msg
+     */
+    @Override
+    public void sendMessage(final Destination destination, final String msg) throws JMSException{
+        logger.info("发送消息-------------->"+msg, new Object[]{Thread.currentThread().getName(), destination.toString(), msg});
 
         jmsTemplate.send(destination, new MessageCreator() {
             @Override
@@ -48,6 +56,7 @@ public class ProducerServiceImpl implements ProducerService {
             }
         });
     }
+    
 
     /**
      * 发送到默认的目的地
@@ -55,10 +64,10 @@ public class ProducerServiceImpl implements ProducerService {
      * @param msg
      */
     @Override
-    public void sendMessage(final String msg) {
+    public void sendMessage(final String msg) throws JMSException{
         String destination = jmsTemplate.getDefaultDestinationName();
 
-        logger.info("{} 向队列{} ,发送消息---------------------->", new Object[]{Thread.currentThread().getName(), destination, msg});
+        logger.info("发送消息---------------------->", new Object[]{Thread.currentThread().getName(), destination, msg});
 
         jmsTemplate.send(new MessageCreator() {
             @Override

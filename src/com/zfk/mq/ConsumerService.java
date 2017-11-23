@@ -1,24 +1,30 @@
 package com.zfk.mq;
 
 import javax.jms.Destination;
+import javax.jms.JMSException;
 import javax.jms.TextMessage;
 
 /**
- * <p>Description: 消费都消息服务接口类</p>
- *
- * @author evan
- * @version 1.0.0
- * <p>Company:workway</p>
- * <p>Copyright:Copyright(c)2017-2018</p>
- * @date 2017/11/16
+ * <p>
+ * Description: 消费都消息服务接口类
+ * </p>
  */
-public interface ConsumerService {
+public interface ConsumerService{
 
-    /**
-     * 接收消息
-     *
-     * @param destination
-     * @return
-     */
-    TextMessage receive(Destination destination);
+	/**
+	 * 接收消息
+	 *
+	 * @param destination
+	 * @return
+	 */
+	TextMessage receive(final String destination) throws JMSException;
+
+	/**
+	 * 接收消息
+	 *
+	 * @param destination
+	 * @return
+	 */
+	TextMessage receive(final Destination destination) throws JMSException;
+
 }

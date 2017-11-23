@@ -21,7 +21,7 @@
 <script src="static/public/js/bootstrap-datetimepicker.zh-CN.js"></script>
 <script src="static/public/js/bootstrap-table.js"></script>
 <script src="static/public/js/bootstrap-table-zh-CN.js"></script>
-<script src="static/publics/js/table.js"></script>
+<script src="static/public/js/table.js"></script>
 
 <script  src="static/public/js/layer/layer.js"></script>
 

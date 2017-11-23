@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<link rel="shortcut icon" href="${appPath}/img/logo.png">
+<link rel="shortcut icon" href="static/public/img/logo.png">
 <!-- Bootstrap 3.3.7 -->
 <link rel="stylesheet" type="text/css" href="static/public/css/bootstrap.min.css">
 <!-- Font Awesome -->

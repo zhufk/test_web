@@ -30,15 +30,14 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
 		System.out.println("==============执行顺序: 1、preHandle================");
 		String requestUri = request.getRequestURI();
 		System.out.println("requestUri:" + requestUri);
-
-		String username = (String) request.getSession().getAttribute("user");
-		if (username == null) {
-			System.out.println("Interceptor：跳转到login页面！");
-			// request.getRequestDispatcher("login.jsp").forward(request,
-			// response);
-			return true;// false;
-		} else
-			return true;
+		return true;
+		// String username = (String) request.getSession().getAttribute("user");
+		// if (username == null) {
+		// request.getRequestDispatcher("login.jsp").forward(request,
+		// response);
+		// return false;
+		// } else
+		// return true;
 	}
 
 	/**
@@ -48,7 +47,8 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
 		System.out.println("==============执行顺序: 2、postHandle================");
-		if (modelAndView != null) { // 加入当前时间
+		if (modelAndView != null) {
+			// 加入当前时间
 			modelAndView.addObject("var", "测试postHandle");
 		}
 	}

@@ -9,22 +9,18 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>和美（深圳）智能机器人-人工应答</title>
+<title>(ajax-server-mq)</title>
 <!-- 生成HTML Base标签 -->
 <%--     <cn:base/> --%>
 <!-- Tell the browser to be responsive to screen width -->
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
 	name="viewport">
-<!-- css begin -->
-<jsp:include page="css_common.jsp"></jsp:include>
-<!-- css end -->
-<jsp:include page="js_common.jsp" />
-<script src="static/zfk/js/common.js"></script>
+<jsp:include page="../commonpage/css_common.jsp"></jsp:include>
+<jsp:include page="../commonpage/js_common.jsp" />
+<script src="../static/zfk/js/common.js"></script>
 <script type="text/javascript">
-	Layout.init(); // init layout
 
-	//test demo 
 	function send() {
 		var time = new Date();
 		var content = $("#messageInput").val();
@@ -61,7 +57,7 @@
 	}
 
 	//启动计时器，5秒执行一次
-	var receiveInterval = window.setInterval(receive, 5000);
+	var receiveInterval = window.setInterval(receive, 10000);
 
 	function receive() {
 		$.ajax({

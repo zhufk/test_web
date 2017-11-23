@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="cn" uri="tlds/base.tld"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -10,14 +9,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>(ajax-server-mq)</title>
-<!-- 生成HTML Base标签 -->
-<%--     <cn:base/> --%>
 <!-- Tell the browser to be responsive to screen width -->
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
 	name="viewport">
-<jsp:include page="/WEB-INF/views/common/style_common.jsp"/>
-<jsp:include page="/WEB-INF/views/common/js_common.jsp" />
+<jsp:include page="/WEB-INF/common/style_common.jsp"/>
+<jsp:include page="/WEB-INF/common/js_common.jsp" />
 <script src="static/zfk/js/common.js"></script>
 <script type="text/javascript">
 	Layout.init(); // init layout

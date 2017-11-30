@@ -1,7 +1,7 @@
 package com.zfk.controller;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.jms.JMSException;
@@ -9,6 +9,7 @@ import javax.jms.TextMessage;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
@@ -36,10 +37,11 @@ public class MqController {
 		// data.setRobotName("小龙人1号");
 		// data.setTime(new Date());
 		// data.setContent(message);
-		data.setUserId("userId1");
-		data.setUserName("朱富昆");
+		// data.setUserId("userId1");
+		// data.setUserName("朱富昆");
+		System.out.println("发送消息到q.one==========>"+data.toString());
 		try {
-			producerService.sendMessage("userId1.send", data.toString());
+			producerService.sendMessage("q.one", data.toString());
 			resultData.setSuccess(true);
 		} catch (JMSException e) {
 			e.printStackTrace();
@@ -47,23 +49,34 @@ public class MqController {
 		return resultData;
 	}
 
-	@RequestMapping("{receive}")
+	@RequestMapping({"receive"})
 	@ResponseBody
-	public ResultData receive() throws JMSException {
-		ResultData resultData = new ResultData(true);
-		ArrayList<MessageData> list = new ArrayList<MessageData>();
+	public List<MessageData> receive(@RequestParam(value="size", required=false) Integer size) throws Exception {
+		List<MessageData> list = new ArrayList<MessageData>();
+		System.out.println("size#############"+size);
+		if (size == null || size == 0) {
+			size = 10;
+		}
 		TextMessage textMsg = null;
 		String message = null;
 		do {
-			textMsg = consumerService.receive("userId1.receive");
+			textMsg = consumerService.receive("q.two");
 			message = textMsg == null ? null : textMsg.getText();
 			if (message != null) {
 				MessageData data = JSONObject.parseObject(message, MessageData.class);
 				list.add(data);
 			}
-		} while (message != null && list.size() <= 10);
-		resultData.setData(list);
-		return resultData;
+		} while (message != null && list.size() <= size);
+		return list;
+	}
+
+	@RequestMapping({"list_history_message"})
+	@ResponseBody
+	public List<MessageData> listHistoryMessage(String userId, @RequestParam(value="size", required=false) Integer size) throws Exception {
+		if (size == null || size == 0) {
+			size = 10;
+		}
+		return consumerService.getMessageList4Cache(userId, size);
 	}
 
 }

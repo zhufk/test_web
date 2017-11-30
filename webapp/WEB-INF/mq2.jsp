@@ -12,7 +12,7 @@
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
 	name="viewport">
-<jsp:include page="/WEB-INF/common/style_common.jsp"/>
+<jsp:include page="/WEB-INF/common/css_common.jsp"/>
 <jsp:include page="/WEB-INF/common/js_common.jsp" />
 <script src="static/zfk/js/common.js"></script>
 <script src="static/zfk/js/mqttws31.js"></script>

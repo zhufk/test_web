@@ -25,18 +25,23 @@
 		<property name="sessionCacheSize" value="100" />
 	</bean>
 
-	<!-- 定义消息队列（Queue） -->
-	<!-- <bean id="destination" class="org.apache.activemq.command.ActiveMQQueue"> -->
-	<!-- 设置消息队列的名字 -->
-	<!-- <constructor-arg> -->
-	<!-- <value>q.one</value> -->
-	<!-- </constructor-arg> -->
-	<!-- </bean> -->
+
+	<!--这个是队列目的地 -->
+	<bean id="queueDestination" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg>
+			<value>q.one</value>
+		</constructor-arg>
+	</bean>
+
+	<!--这个是主题目的地 -->
+	<bean id="topicDestination" class="org.apache.activemq.command.ActiveMQTopic">
+		<constructor-arg value="chat-one" />
+	</bean>
 
 	<!-- 配置JMS模板（Queue），Spring提供的JMS工具类，它发送、接收消息。 -->
 	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
 		<property name="connectionFactory" ref="connectionFactory" />
-		<!-- <property name="defaultDestination" ref="destination" /> -->
+		<!-- <property name="defaultDestination" ref="queueDestination" /> -->
 		<property name="receiveTimeout" value="10000" />
 		<!-- true是topic，false是queue，默认是false，此处显示写出false (非pub/sub模型（发布/订阅），true为topic,false为queue) -->
 		<property name="pubSubDomain" value="false" />
@@ -46,12 +51,23 @@
 	<!-- 配置消息队列监听者（Queue） -->
 	<!-- <bean id="queueMessageListener" class="com.zfk.listener.QueueMessageListener"/> -->
 
-	<!-- 显示注入消息监听容器（Queue），配置连接工厂，监听的目标是demoQueueDestination，监听器是上面定义的监听器 -->
+	<!-- 显示注入消息监听容器（Queue），配置连接工厂，监听的目标是queueDestination，监听器是上面定义的监听器 -->
 	<!-- <bean id="queueListenerContainer" -->
 	<!-- class="org.springframework.jms.listener.DefaultMessageListenerContainer"> -->
 	<!-- <property name="connectionFactory" ref="connectionFactory"/> -->
-	<!-- <property name="destination" ref="destination"/> -->
+	<!-- <property name="destination" ref="queueDestination"/> -->
 	<!-- <property name="messageListener" ref="queueMessageListener"/> -->
 	<!-- </bean> -->
+	
+	<!-- 配置主题监听者（Topic） -->
+	<bean id="topicMessageListener" class="com.zfk.listener.TopicMessageListener"/>
+
+	<!-- 显示注入消息监听容器（Topic），配置连接工厂，监听的目标是demoQueueDestination，监听器是上面定义的监听器 -->
+	<bean id="topicListenerContainer"
+	class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+	<property name="connectionFactory" ref="connectionFactory"/>
+	<property name="destination" ref="topicDestination"/>
+	<property name="messageListener" ref="topicMessageListener"/>
+	</bean>
 
 </beans>

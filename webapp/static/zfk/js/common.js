@@ -121,6 +121,50 @@ function formSubmitParam(params, url, callback) {
 	});
 };
 
+function subForm(url, formId) {
+	if (!formId) {
+		formId = "searchForm";
+	}
+	if (!url) {
+		url = $('#' + formId).attr('action');
+	}
+	// Metronic.startPageLoading();//显示loadding
+	/*
+	 * 去掉所有的前后空格
+	 */
+	$('#' + formId + ' input').each(function() {
+		$(this).val($(this).val().trim());
+	});
+	var param = $('#' + formId).serialize();
+	var paramArr = param.split('&');
+	var finalParam = '';
+	if (paramArr && paramArr.length > 0) {
+		for (var i = 0; i < paramArr.length; i++) {
+			var key_value = paramArr[i].split('=');
+			if (key_value[1] && key_value[1].trim()) {
+				finalParam += key_value[0];
+				finalParam += '=';
+				finalParam += key_value[1].trim();
+				finalParam += '&';
+			}
+		}
+		finalParam = finalParam.substr(0, finalParam.length - 1);
+	}
+	$.ajax({
+		type : "POST",
+		url : url,
+		data : finalParam,
+		async : true,
+		error : function(request) {
+			goSync("error/500");
+		},
+		success : function(data) {
+			initPage(data);
+		}
+	});
+};
+
+
 /**
  * 初始化页面数据
  * 
@@ -217,48 +261,25 @@ function goSync(url) {
 	});
 };
 
-function subForm(url, formId) {
-	if (!formId) {
-		formId = "searchForm";
-	}
-	if (!url) {
-		url = $('#' + formId).attr('action');
-	}
-	// Metronic.startPageLoading();//显示loadding
-	/*
-	 * 去掉所有的前后空格
-	 */
-	$('#' + formId + ' input').each(function() {
-		$(this).val($(this).val().trim());
-	});
-	var param = $('#' + formId).serialize();
-	var paramArr = param.split('&');
-	var finalParam = '';
-	if (paramArr && paramArr.length > 0) {
-		for (var i = 0; i < paramArr.length; i++) {
-			var key_value = paramArr[i].split('=');
-			if (key_value[1] && key_value[1].trim()) {
-				finalParam += key_value[0];
-				finalParam += '=';
-				finalParam += key_value[1].trim();
-				finalParam += '&';
-			}
-		}
-		finalParam = finalParam.substr(0, finalParam.length - 1);
-	}
+/**
+ * 同步请获取json数据
+ * @param url 请求地址
+ */
+function getDataBySync(url, data){
+	var dataResult = '';
 	$.ajax({
-		type : "POST",
-		url : url,
-		data : finalParam,
-		async : true,
-		error : function(request) {
-			goSync("error/500");
-		},
-		success : function(data) {
-			initPage(data);
+		url: url,
+		type: 'POST',
+		data: data,
+		async: false,
+		dataType: 'json', 
+		success: function(result){
+			dataResult = result;
 		}
 	});
-};
+	return dataResult;
+}
+
 
 /**
  * 初始化异常显示层
@@ -502,4 +523,33 @@ function getDropSelect(sel, url, vals, value, name) {
 			}
 		}
 	});
+}
+
+/**
+ * IP验证
+ * @param ip
+ * @returns {Boolean}
+ */
+function isIP(ip){  
+    var reSpaceCheck = /^(\d+)\.(\d+)\.(\d+)\.(\d+)$/;  
+    if (reSpaceCheck.test(ip)){  
+        ip.match(reSpaceCheck); 
+        var result = RegExp.$1<=255&&RegExp.$1>=0&&RegExp.$2<=255&&RegExp.$2>=0&&RegExp.$3<=255&&RegExp.$3>=0&&RegExp.$4<=255&&RegExp.$4>=0;
+        return result;
+    }else{
+    	return false;
+    }
+}  
+
+/**
+ * IP转换成十进制值
+ * @param ip
+ * @returns {Number}
+ */
+function ip2num(ip){ 
+    var num = 0;
+    ip = ip.split(".");
+    num = Number(ip[0]) * 256 * 256 * 256 + Number(ip[1]) * 256 * 256 + Number(ip[2]) * 256 + Number(ip[3]);
+    num = num >>> 0;
+    return num;
 }

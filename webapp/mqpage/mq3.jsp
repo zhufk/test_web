@@ -24,8 +24,8 @@
 	var receiveDest;
 	var sendDest;
 	
-  $(document).ready(function() {
-      if(window.WebSocket) {
+  	$(document).ready(function() {
+  		if(window.WebSocket) {
     	//获取历史消息
   		$.ajax({
   			type : 'post',
@@ -33,7 +33,7 @@
   			data : {
   				userId : "userId1",
   				size : 10
-  			},//朱富昆
+  			},
   			dataType : 'json',
   			success : function(result) {
   				console.log("收到历史消息:" + JSON.stringify(result));
@@ -45,44 +45,43 @@
   				//initClient();
   			}
   		});
-    	  //连接
+    	
+    	//连接
         $('#connect').click(function() {
-          var url = $("#connect_url").val();
-          var login = $("#connect_login").val();
-          var passcode = $("#connect_passcode").val();
+        	var url = $("#connect_url").val();
+            var login = $("#connect_login").val();
+            var passcode = $("#connect_passcode").val();
           
-          receiveDest = $("#receiveDest").val();
-          sendDest = $("#sendDest").val();
+            receiveDest = $("#receiveDest").val();
+            sendDest = $("#sendDest").val();
 
-          client = Stomp.client(url);
+            client = Stomp.client(url);
 
-          client.debug = function(str) {
-            $("#debug").append(document.createTextNode(str + "\n"));
-          };
+            client.debug = function(str) {
+            	$("#debug").append(document.createTextNode(str + "\n"));
+            };
           
-          client.connect(login, passcode, function(frame) {
-            client.debug("connected to Stomp");
-            client.subscribe(receiveDest, function(message) {
-            	var data = JSON.parse(message.body);
-            	//data = {robotName:"小龙人1号",content:message.body};
-            	
-            	appendMessage(data);
-            });
-          });
-          $('#connect').attr("disabled", true);
-          $('#disconnect').attr("disabled", false);
-          
+            //连接服务器
+            client.connect(login, passcode, function(frame) {
+        		client.debug("connected to Stomp");
+            	//订阅主题并注册消息接收处理事件  
+            	client.subscribe(receiveDest, function(message) {
+            		var data = JSON.parse(message.body);
+            		appendMessage(data);
+            	});
+          	});
+          	$('#connect').attr("disabled", true);
+          	$('#disconnect').attr("disabled", false);
         });
   
     	  //断开
         $('#disconnect').click(function() {
-          client.disconnect(function() {
-            $("#messageContentInput").html("");
-            $("#debug").text("");
-          });
-          $('#connect').attr("disabled", false);
-          $('#disconnect').attr("disabled", true);
-         
+        	client.disconnect(function() {
+            	$("#messageContentInput").html("");
+            	$("#debug").text("");
+          	});
+          	$('#connect').attr("disabled", false);
+          	$('#disconnect').attr("disabled", true);
         });
    
     	 //发送

@@ -50,19 +50,21 @@
 		//初始化客户端
 		function initClient() {
 			window.client = new Messaging.Client(host, Number(port), clientId);
+			//连接服务器并注册连接成功处理事件  
 			client.connect({
 				userName : userName,
 				password : password,
 				onSuccess : onConnect
-			});//连接服务器并注册连接成功处理事件  
+			});
 			client.onConnectionLost = onConnectionLost;//注册连接断开处理事件  
 			client.onMessageArrived = onMessageArrived;//注册消息接收处理事件  
+			//连接成功处理事件  
 			function onConnect() {
 				console.log("onConnected");
 				client.subscribe(receiveDest);//订阅主题  
 			}
 			;
-
+			//断开处理事件  
 			function onConnectionLost(responseObject) {
 				if (responseObject.errorCode !== 0) {
 					console.log("onConnectionLost:"
@@ -71,6 +73,7 @@
 				}
 			}
 			;
+			//接收处理事件  
 			function onMessageArrived(message) {
 				console.log("收到消息:" + message.payloadString);
 				var data = JSON.parse(message.payloadString);

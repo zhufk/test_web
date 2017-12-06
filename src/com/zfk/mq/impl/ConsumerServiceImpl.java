@@ -16,7 +16,7 @@ import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.TextMessage;
 
-@Service
+//@Service
 public class ConsumerServiceImpl implements ConsumerService {
 	private static final Logger logger = LoggerFactory.getLogger(ConsumerServiceImpl.class);
 

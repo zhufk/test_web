@@ -14,7 +14,7 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.Session;
 
-@Service
+//@Service
 public class ProducerServiceImpl implements ProducerService {
 
     private static final Logger logger = LoggerFactory.getLogger(ProducerServiceImpl.class);

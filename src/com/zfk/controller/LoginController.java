@@ -19,7 +19,7 @@ import com.zfk.base.util.StringUtils;
 @RequestMapping("/")
 public class LoginController {
 	protected final Logger LOGGER = LoggerFactory.getLogger(getClass());
-
+	/*
 	@RequestMapping(value = { "initLogin" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET })
 	public String initLogin(HttpServletRequest request, HttpServletResponse response, Model model) {
 		return "login";
@@ -65,4 +65,5 @@ public class LoginController {
 
 		return "redirect:initLogin";
 	}
+	*/
 }

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.zfk.entity.MessageData;
 
-@Component
+//@Component
 public class MessageCache {
 
 	private static Map<String, LinkedList<MessageData>> cacheMap = new ConcurrentHashMap<String, LinkedList<MessageData>>();

@@ -1,13 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ include file="/WEB-INF/taglibs.jsp"%>
-<%@ taglib tagdir="/WEB-INF/tags" prefix="cntags"%>
 <!DOCTYPE html>
-<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
-<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
-<!--[if !IE]><!-->
 <html lang="en" style="height: auto;">
-<!--<![endif]-->
-<!-- BEGIN HEAD -->
 <head>
 <title>和美（深圳）智能机器人知识库系统-登录</title>
 <meta

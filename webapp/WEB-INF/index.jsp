@@ -14,7 +14,7 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- css -->
-    <jsp:include page="/WEB-INF/common/style_common.jsp"></jsp:include>
+    <jsp:include page="/WEB-INF/common/css_common.jsp"/>
     <!-- js -->
     <jsp:include page="/WEB-INF/common/js_common.jsp"/>
 </head>

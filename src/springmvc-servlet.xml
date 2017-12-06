@@ -71,13 +71,15 @@
 		<!-- 当设置多个拦截器时，先按顺序调用preHandle方法，然后逆序调用每个拦截器的postHandle和afterCompletion方法 -->
 	</mvc:interceptors>
 
-	<!-- 静态资源不过springmvc 设置一年缓存-->
+	<!-- 静态资源过springmvc-->
     <mvc:resources mapping="/static/public/js/**" location="/static/public/js/"/>
     <mvc:resources mapping="/static/public/css/**" location="/static/public/css/"/>
     <mvc:resources mapping="/static/public/img/**" location="/static/public/img/"/>
     <mvc:resources mapping="/static/zfk/js/**" location="/static/zfk/js/"/>
-    <mvc:resources mapping="/static/zfk/csss/**" location="/static/zfk/css/"/>
+    <mvc:resources mapping="/static/zfk/css/**" location="/static/zfk/css/"/>
     <mvc:resources mapping="/static/zfk/img/**" location="/static/zfk/img/"/>
+    
+    <mvc:resources mapping="/ueditor/**" location="/ueditor/"/>
 
 	<!-- 配置文件上传，如果没有使用文件上传可以不用配置，当然如果不配，那么配置文件中也不必引入上传组件包 -->
 	<bean id="multipartResolver"

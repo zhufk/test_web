@@ -300,12 +300,21 @@
         </dependency>
         <!-- activemq end -->
 
+		<!-- ueditor begin -->
 		<dependency>  
 		    <groupId>com.baidu</groupId>  
 		    <artifactId>ueditor</artifactId>  
 		    <version>1.1.2</version>  
 		</dependency>  
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20140107</version>
+		</dependency>
+		<!-- ueditor end -->
+		
 	</dependencies>
+	
 
 	<build>
 		<sourceDirectory>src</sourceDirectory>

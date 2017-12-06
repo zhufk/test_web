@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class IndexController {
 	
-	@RequestMapping("/index/{page}")
-	public String index(@PathVariable String page) {
+	@RequestMapping("/page/{page}")
+	public String page(@PathVariable String page) {
 		System.out.println("page###########"+page);
 		return page;
 	}
 	
-	@RequestMapping("/index")
-	public String index2(@RequestParam String page) {
+	@RequestMapping("/page")
+	public String page2(@RequestParam String page) {
 		System.out.println("page###########"+page);
 		return page;
 	}

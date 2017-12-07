@@ -1,5 +1,7 @@
 package com.zfk.base.constant;
 
+import com.zfk.base.util.PropertyUtils;
+
 /**
  * <p>Description: 常量类(不知道放在那里的常量,可以放到这里来...)</p>
  *
@@ -10,9 +12,19 @@ package com.zfk.base.constant;
  * @date 2017/11/1
  */
 public final class WayConsts {
-
     /**
      * 分页数
      */
     public static final Integer PAGE_SIZE = 15;
+
+    /**
+     * 图片保存路径
+     */
+    public static final String IMAGE_PATH = PropertyUtils.getConfig("image.formal.path");
+
+
+    /**
+     * 文件保存路径
+     */
+    public static final String FILE_PATH = PropertyUtils.getConfig("file.formal.path");
 }

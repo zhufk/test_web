@@ -27,7 +27,7 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		System.out.println("==============执行顺序: 1、preHandle================");
+		//System.out.println("==============执行顺序: 1、preHandle================");
 		String requestUri = request.getRequestURI();
 		System.out.println("requestUri:" + requestUri);
 		return true;
@@ -46,7 +46,7 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-		System.out.println("==============执行顺序: 2、postHandle================");
+		//System.out.println("==============执行顺序: 2、postHandle================");
 		if (modelAndView != null) {
 			// 加入当前时间
 			modelAndView.addObject("var", "测试postHandle");
@@ -61,7 +61,7 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
-		System.out.println("==============执行顺序: 3、afterCompletion================");
+		//System.out.println("==============执行顺序: 3、afterCompletion================");
 	}
 
 }

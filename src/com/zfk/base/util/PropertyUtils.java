@@ -1,10 +1,8 @@
 package com.zfk.base.util;
-/*  2:   */
-/*  7:   */import java.util.MissingResourceException;
-/*  8:   */import java.util.ResourceBundle;
-/*  9:   */
-/* 24:   */public class PropertyUtils
-/* 25:   */{
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
+
+public class PropertyUtils{
 /* 26:   */  private static final String PRO_APPLICATION = "application";
 /* 27:   */  
 /* 28:   */  public static String getString(String key)
@@ -38,8 +36,3 @@ package com.zfk.base.util;
 
 /* 87:   */}
 
-
-/* Location:           D:\maven_warehouse\com\gep\gep-commons\1.0.4-SNAPSHOT\gep-commons-1.0.4-SNAPSHOT.jar
- * Qualified Name:     com.gep.core.util.PropertyUtils
- * JD-Core Version:    0.7.0-SNAPSHOT-20130630
- */

@@ -13,6 +13,7 @@
 <script src="../static/public/js/bootstrap-datetimepicker.zh-CN.js"></script>
 <script src="../static/public/js/bootstrap-table.js"></script>
 <script src="../static/public/js/bootstrap-table-zh-CN.js"></script>
+<script src="../static/public/js/bootstrapValidator.min.js"></script>
 
 <!-- DataTables -->
 <script src="../static/public/js/jquery.dataTables.min.js"></script>
@@ -20,9 +21,11 @@
 
 <!-- AdminLTE App -->
 <script src="../static/public/js/adminlte.min.js"></script>
-
 <script src="../static/public/js/layout.js"></script>
 
+<!-- layer弹出层 -->
 <script src="../static/public/js/layer/layer.js"></script>
+
+
 
 

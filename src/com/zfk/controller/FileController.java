@@ -23,6 +23,10 @@ public class FileController {
 		 //把带二进制表单数据的request对象交给spring转换 得到一个文件和普通数据分开的新request对象
 	    MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 	    
+	    System.out.println("getContextPath=="+request.getContextPath());//test_web
+	    System.out.println("getServletPath=="+request.getServletPath());//fileC/addUser
+	    System.out.println("getServletContext=="+request.getServletContext().getContextPath());//test_web
+	    
 	    // 获取from表单参数
 	    String name = multipartRequest.getParameter("name");
 	    String age = multipartRequest.getParameter("age");

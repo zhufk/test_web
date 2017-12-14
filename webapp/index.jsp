@@ -6,13 +6,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>INDEX</title>
-<meta
-	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
-	name="viewport">
+<script type="text/javascript" src="static/public/js/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		//init();
+	});
 
+	function init() {
+		var url = "http://127.0.0.1:8080";
+		$.ajax({
+			type : 'get',
+			url : url,
+			success : function(data) {
+				alert(data);
+			},
+			error : function(XMLHttpRequest, textStatus, errorThrown) {
+				// 				alert(XMLHttpRequest.status);
+				// 				alert( XMLHttpRequest.readyState);
+				alert(textStatus);
+			}
+		});
+	}
+</script>
 
 </head>
 <body>

@@ -9,6 +9,7 @@ import com.zfk.base.constant.CharsConsts;
 import com.zfk.base.constant.MeasureConsts;
 import com.zfk.base.exceptoin.UncheckedException;
 
+
 /**
  * <p>Description: 文件操作工具类</p>
  *
@@ -22,13 +23,24 @@ public final class FileUtils {
     private static final int DEFAULT_BUFFER_SIZE = 4 * MeasureConsts.K;
 
     /**
-     * 在已有文件名后增加一个以精确到毫秒的当前时间戳生成随机文件名。
+     * 在已有文件名后增加一个以精确到秒的当前时间戳生成随机文件名。
      *
      * @param fileName 已有文件名
      * @return 返回生成的随机文件名。
      */
     public static String getRandomFileName(String fileName) {
-        return getFileName(fileName) + "-" + DateUtils.formatDate(new Date(), DateUtils.MILLISECOND_N)
+        return getFileName(fileName) + "_" + DateUtils.formatDate(new Date(), DateUtils.MILLISECOND_N)
+                + getFileType(fileName);
+    }
+
+    /**
+     * 以精确到秒的当前时间戳生成随机文件名。
+     *
+     * @param fileName 已有文件名
+     * @return 返回生成的随机文件名。
+     */
+    public static String getRandomName(String fileName) {
+        return DateUtils.formatDate(new Date(), DateUtils.MILLISECOND_N)
                 + getFileType(fileName);
     }
 
@@ -177,6 +189,7 @@ public final class FileUtils {
 
     /**
      * 生成文件流MD5字符串
+     *
      * @param inputStream 输入流
      * @return
      * @throws Exception

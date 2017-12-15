@@ -7,14 +7,24 @@
 <title>index</title>
 </head>
 <body>
-	<form action="${pageContext.request.contextPath}/fileC/addUser" method="post"
-		enctype="multipart/form-data">
+	<div style="border: 1px red solid; padding: 10px">
+		<form action="${pageContext.request.contextPath}/file/addUser2"
+			method="post" enctype="multipart/form-data">
 
-		姓名：<input type="text" name="name" /> </br> 
-		年级：<input type="text" name="age" /> </br> 
-		文件 : <input type="file" name="file" multiple/> </br> 
-			<input type="submit" value="上传" />
+			姓名：<input type="text" name="name" /> </br> 年级：<input type="text"
+				name="age" /> </br> 文件 : <input type="file" name="file" multiple /> </br> <input
+				type="submit" value="上传" />
+		</form>
+	</div>
 
-	</form>
+	<div style="border: 1px red solid; padding: 10px">
+		<form action="${pageContext.request.contextPath}/file/upload_file"
+			method="post" enctype="multipart/form-data">
+			
+			文件 : <input type="file" name="file" multiple /> </br> <input
+				type="submit" value="上传" />
+		</form>
+	</div>
+
 </body>
 </html>

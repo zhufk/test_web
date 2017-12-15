@@ -3,10 +3,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%
+	response.addHeader("Access-Control-Allow-Origin", "*");
+	String s = request.getSession().getId();
+	System.out.println(s); 
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <title>INDEX</title>
+<meta http-equiv="Access-Control-Allow-Origin" content="*">
 <script type="text/javascript" src="static/public/js/jquery.min.js"></script>
 <script type="text/javascript">
 	$(function() {
@@ -14,7 +20,7 @@
 	});
 
 	function init() {
-		var url = "http://127.0.0.1:8080";
+		var url = "http://127.0.0.1:8080/test-web/index.html";
 		$.ajax({
 			type : 'get',
 			url : url,

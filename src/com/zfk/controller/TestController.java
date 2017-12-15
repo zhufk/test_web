@@ -6,11 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-import javax.jms.Destination;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import org.apache.activemq.command.ActiveMQQueue;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,12 +22,14 @@ import org.springframework.web.servlet.ModelAndView;
 public class TestController {
 	
 	@RequestMapping("/test1")
-	public String test1(HttpServletRequest request) {
+	public String test1(HttpServletRequest request, HttpServletResponse response) {
+		response.addHeader("Access-Control-Allow-Origin", "*");
 		return "test";
 	}
 
 	@RequestMapping("/test2")
-	public ModelAndView test2(HttpServletRequest request) {
+	public ModelAndView test2(HttpServletRequest request, HttpServletResponse response) {
+		response.addHeader("Access-Control-Allow-Origin", "*");
 		ModelAndView modelAndView = new ModelAndView("test");
 		modelAndView.addObject("info", "朱富昆啊");
 		modelAndView.addObject("info2", Arrays.asList("朱富昆", "小龙"));

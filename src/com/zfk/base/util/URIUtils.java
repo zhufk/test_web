@@ -51,7 +51,7 @@ public class URIUtils {
 	}
 
 	public static List<String> getUrlMappings(Method method) {
-		List<String> cUrls = new ArrayList();
+		List<String> cUrls = new ArrayList<String>();
 		RequestMapping cMapping = (RequestMapping) method.getDeclaringClass().getAnnotation(RequestMapping.class);
 		RequestMapping mMapping = (RequestMapping) method.getAnnotation(RequestMapping.class);
 

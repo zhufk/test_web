@@ -185,7 +185,7 @@ public abstract class StringUtils {
 
 	public static final List<Integer> indexsOf(String str, String target) {
 		if ((isNotBlank(str).booleanValue()) && (isNotBlank(target).booleanValue())) {
-			List<Integer> list = new ArrayList();
+			List<Integer> list = new ArrayList<Integer>();
 
 			Pattern pattern = Pattern.compile(target, 2);
 			Matcher matcher = pattern.matcher(str);

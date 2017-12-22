@@ -37,7 +37,7 @@ public class SpringUtils implements ApplicationContextAware {
 	}
 
 	public static List<Resource> getResourcesByWildcard(String... wildcardResourcePaths) {
-		List<Resource> resources = new ArrayList();
+		List<Resource> resources = new ArrayList<Resource>();
 		try {
 			ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
 			for (String basename : wildcardResourcePaths) {
@@ -52,7 +52,7 @@ public class SpringUtils implements ApplicationContextAware {
 	}
 
 	public static List<String> getResourcePathsByWildcard(String resourceDir, String... wildcardResourcePaths) {
-		List<String> resourcePaths = new ArrayList();
+		List<String> resourcePaths = new ArrayList<String>();
 		try {
 			for (Resource resource : getResourcesByWildcard(wildcardResourcePaths)) {
 				String uri = resource.getURI().toString();
@@ -68,7 +68,7 @@ public class SpringUtils implements ApplicationContextAware {
 	}
 
 	public static List<String> getResourceBasenamesByWildcard(String resourceDir, String... wildcardResourcePaths) {
-		List<String> resourceBasenames = new ArrayList();
+		List<String> resourceBasenames = new ArrayList<String>();
 		for (String resourcePath : getResourcePathsByWildcard(resourceDir, wildcardResourcePaths)) {
 			resourceBasenames.add(StringUtils.substringBeforeLast(resourcePath, "."));
 		}

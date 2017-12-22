@@ -5,7 +5,6 @@ import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
 import javax.servlet.ServletRequest;
@@ -101,8 +100,8 @@ public class ServletUtils {
 
 	public static Map<String, Object> getParametersStartingWith(ServletRequest request, String prefix) {
 		Validate.notNull(request, "Request must not be null", new Object[0]);
-		Enumeration paramNames = request.getParameterNames();
-		Map<String, Object> params = new TreeMap();
+		Enumeration<?> paramNames = request.getParameterNames();
+		Map<String, Object> params = new TreeMap<String, Object>();
 		String pre = prefix;
 		if (pre == null) {
 			pre = "";
@@ -133,7 +132,7 @@ public class ServletUtils {
 		}
 		Iterator<Map.Entry<String, Object>> it = params.entrySet().iterator();
 		while (it.hasNext()) {
-			Map.Entry<String, Object> entry = (Map.Entry) it.next();
+			Map.Entry<String, Object> entry = (Entry<String, Object>) it.next();
 			queryStringBuilder.append(pre).append((String) entry.getKey()).append("=").append(entry.getValue());
 			if (it.hasNext()) {
 				queryStringBuilder.append("&");

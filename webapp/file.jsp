@@ -11,8 +11,8 @@
 		<form action="${pageContext.request.contextPath}/file/addUser2"
 			method="post" enctype="multipart/form-data">
 
-			姓名：<input type="text" name="name" /> </br> 年级：<input type="text"
-				name="age" /> </br> 文件 : <input type="file" name="file" multiple /> </br> <input
+			姓名：<input type="text" name="name" /> <br> 年级：<input type="text"
+				name="age" /> <br> 文件 : <input type="file" name="file" multiple /> <br> <input
 				type="submit" value="上传" />
 		</form>
 	</div>
@@ -21,7 +21,7 @@
 		<form action="${pageContext.request.contextPath}/file/upload_file"
 			method="post" enctype="multipart/form-data">
 			
-			文件 : <input type="file" name="file" multiple /> </br> <input
+			文件 : <input type="file" name="file" multiple /> <br> <input
 				type="submit" value="上传" />
 		</form>
 	</div>

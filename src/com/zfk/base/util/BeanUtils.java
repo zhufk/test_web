@@ -24,7 +24,7 @@ public abstract class BeanUtils {
 	}
 
 	public static List<Field> findField(Class<?> targetClass, Class<? extends Annotation> annotationClassOnField) {
-		List<Field> fields = new ArrayList();
+		List<Field> fields = new ArrayList<Field>();
 		for (Field field : getAllDeclaredField(targetClass, new String[0])) {
 			if (field.isAnnotationPresent(annotationClassOnField)) {
 				fields.add(field);
@@ -81,7 +81,7 @@ public abstract class BeanUtils {
 	}
 
 	public static List<Field> getAllDeclaredField(Class<?> targetClass, String... excludeFieldNames) {
-		List<Field> fields = new ArrayList();
+		List<Field> fields = new ArrayList<Field>();
 		if (targetClass != null) {
 			for (Field field : targetClass.getDeclaredFields()) {
 				if (!CollectionUtils.contains(excludeFieldNames, field.getName()).booleanValue()) {
@@ -90,7 +90,7 @@ public abstract class BeanUtils {
 			}
 			Object parentClass = targetClass.getSuperclass();
 			if (parentClass != Object.class) {
-				fields.addAll(getAllDeclaredField((Class) parentClass, excludeFieldNames));
+				fields.addAll(getAllDeclaredField((Class<?>) parentClass, excludeFieldNames));
 			}
 		}
 		return fields;
@@ -148,9 +148,9 @@ public abstract class BeanUtils {
 	public static Class<?> getGenericFieldType(Field field) {
 		Type type = ((ParameterizedType) field.getGenericType()).getActualTypeArguments()[0];
 		if ((type instanceof ParameterizedType)) {
-			return (Class) ((ParameterizedType) type).getRawType();
+			return (Class<?>) ((ParameterizedType) type).getRawType();
 		}
-		return (Class) type;
+		return (Class<?>) type;
 	}
 
 	public static void copyProperties(Object bean, Map<String, Object> map) {

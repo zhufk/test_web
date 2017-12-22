@@ -18,7 +18,7 @@ public class ClassUtils {
 	private static Logger log = Logger.getLogger(ClassUtils.class);
 
 	public static List<Class<?>> findClassesByParentClass(Class<?> parentClass, String... packageNames) {
-		List<Class<?>> classes = new ArrayList();
+		List<Class<?>> classes = new ArrayList<Class<?>>();
 		for (Class<?> targetClass : findClasses(packageNames)) {
 			if ((!targetClass.equals(parentClass)) && (parentClass.isAssignableFrom(targetClass))
 					&& (!Modifier.isAbstract(targetClass.getModifiers()))) {
@@ -30,7 +30,7 @@ public class ClassUtils {
 
 	public static List<Class<?>> findClassesByAnnotationClass(Class<? extends Annotation> annotationClass,
 			String... packageNames) {
-		List<Class<?>> classes = new ArrayList();
+		List<Class<?>> classes = new ArrayList<Class<?>>();
 		for (Class<?> targetClass : findClasses(packageNames)) {
 			if (targetClass.isAnnotationPresent(annotationClass)) {
 				classes.add(targetClass);
@@ -40,7 +40,7 @@ public class ClassUtils {
 	}
 
 	public static List<Class<?>> findClasses(String... packageNames) {
-		List<Class<?>> classes = new ArrayList();
+		List<Class<?>> classes = new ArrayList<Class<?>>();
 		for (String className : findClassNames(packageNames)) {
 			try {
 				classes.add(Class.forName(className));
@@ -52,7 +52,7 @@ public class ClassUtils {
 	}
 
 	private static List<String> findClassNames(String... packageNames) {
-		List<String> classNames = new ArrayList();
+		List<String> classNames = new ArrayList<String>();
 		try {
 			for (String packageName : packageNames) {
 				String packagePath = packageName.replace(".", "/");
@@ -73,7 +73,7 @@ public class ClassUtils {
 	}
 
 	private static List<String> getClassNamesFromJar(URL url, String packageName) {
-		List<String> classNames = new ArrayList();
+		List<String> classNames = new ArrayList<String>();
 		try {
 			String jarPath = URLDecoder.decode(url.toExternalForm(), "UTF-8");
 			if (log.isDebugEnabled()) {
@@ -98,7 +98,7 @@ public class ClassUtils {
 	}
 
 	private static List<String> getClassNamesFromJar(JarEntry jarEntry, String packageName) {
-		List<String> classNames = new ArrayList();
+		List<String> classNames = new ArrayList<String>();
 		if ((!jarEntry.isDirectory()) && (jarEntry.getName().endsWith(".class"))) {
 			String className = jarEntry.getName();
 			className = className.replaceFirst(".class$", "");
@@ -123,7 +123,7 @@ public class ClassUtils {
 	}
 
 	private static List<String> getClassNamesFromDir(File dir, String packageName) {
-		List<String> classNames = new ArrayList();
+		List<String> classNames = new ArrayList<String>();
 		try {
 			File[] files = dir.listFiles();
 			String separator = System.getProperty("file.separator");

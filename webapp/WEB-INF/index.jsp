@@ -97,12 +97,34 @@
 			<!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu" data-widget="tree">
                 <%--<li class="header">建行小龙机器人</li>--%>
+                <li class="active treeview">
+                    <a href="javaScript:;">
+                        <i class="fa fa-gears"></i>
+                        <span>测试</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="arrow">
+                            <a href="chat/chat" class="ajaxify">
+                                <i class="fa fa-circle-o"></i> 聊天
+                            </a>
+                        </li>
+                        <li class="arrow">
+                            <a href="page/mq" class="ajaxify">
+                                <i class="fa fa-circle-o"></i> 聊天
+                            </a>
+                        </li>
+                    </ul>
+
+                </li>
 
                 <c:set var="first" value="true"/>
                 <c:forEach items="${menu}" var="item">
                     <li class="<c:if test='${first}'>active</c:if> treeview">
                         <a href="javaScript:;">
-                            <i class="fa ${item.icon}"></i>
+                            <i class="fa fa-comments-o ${item.icon}"></i>
                             <span>${item.caption}</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>

@@ -72,9 +72,13 @@
 	</mvc:interceptors>
 
 	<!-- 静态资源过springmvc-->
+	<mvc:resources mapping="/static/public/assets/css/**" location="/static/public/assets/css/"/>
+    <mvc:resources mapping="/static/public/assets/fonts/**" location="/static/public/assets/fonts/"/>
+    <mvc:resources mapping="/static/public/assets/js/**" location="/static/public/assets/js/"/>
     <mvc:resources mapping="/static/public/js/**" location="/static/public/js/"/>
     <mvc:resources mapping="/static/public/css/**" location="/static/public/css/"/>
     <mvc:resources mapping="/static/public/img/**" location="/static/public/img/"/>
+    <mvc:resources mapping="/static/public/fonts/**" location="/static/public/fonts/"/>
     <mvc:resources mapping="/static/zfk/js/**" location="/static/zfk/js/"/>
     <mvc:resources mapping="/static/zfk/css/**" location="/static/zfk/css/"/>
     <mvc:resources mapping="/static/zfk/img/**" location="/static/zfk/img/"/>

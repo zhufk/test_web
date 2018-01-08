@@ -1,0 +1,137 @@
+html,
+body {
+  height: 100% !important;
+  overflow-y: hidden;
+}
+.wrapper {
+  height: 100% !important;
+}
+.page-content-wrapper {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  padding-top: 50px;
+  padding-bottom: 30px
+}
+.content-wrapper {
+  height: 100%;
+  overflow-y: auto;
+}
+.main-footer {
+  background: #fff;
+  padding: 15px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.fixed-table-body table td {
+  max-width: 210px !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.red{
+    color: red;
+}
+#down,#up{
+  position: absolute;
+  font-size: 14px;
+  margin-top: 5px;
+  right: 10px;
+  top:5%;
+}
+.description{
+  margin-left:10px;color:#999999;
+}
+
+.items{
+  position: absolute;
+  left:10px;
+  bottom: 15px;
+  height:62px;
+  width:160px;
+}
+
+.branddesc{
+  max-width: 160px ;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  color: #999999;
+}
+
+.description{
+  display: inline-block;
+  max-width: 88px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.con_c{
+  margin: 0 36px 0 40px;
+  padding-bottom: 8px;
+  font-size: 12px;
+  color: #666;
+}
+.con_tit{
+  margin: 16px 36px 0 40px;
+  padding-bottom: 12px;
+  font-size: 12px;
+  color: #666;
+}
+.xiazaimoban_box{
+  width: 238px;
+  margin: 27px auto 0;
+}
+.xiazaimoban_box .file_div{
+  position: relative;
+  height: 35px;
+  width: 100%;
+}
+.xiazaimoban_box .file_div .wenji{
+  border-radius: 3px;
+  color: #2c2c2c;
+  background: #f7f8fa;
+  border: 1px solid #bdc3c7;
+  width: 238px;
+  height: 36px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  text-align: center;
+  line-height: 36px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+  cursor: pointer;
+}
+.xiazaimoban_box .btns{
+  padding-top: 20px;
+  width: 100%;
+  text-align: center;
+  clear: both;
+  overflow: hidden;
+}
+.downMb{
+  font-size: 14px;
+  color: #333;
+  text-indent: 20px;
+}
+.bins_content span{
+  clear: both;
+  overflow: hidden;
+  height: 56px;
+  line-height: 24px;
+  text-indent: 20px;
+  font-size: 14px;
+  padding-left: 18px;
+}

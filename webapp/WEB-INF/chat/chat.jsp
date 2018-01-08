@@ -3,6 +3,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <% String contenxtPath = request.getContextPath(); %>
+<c:set var="contenxtPath" value="${pageContext.request.contextPath}"/>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>聊天</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- css -->
+    <jsp:include page="/WEB-INF/common/css_common.jsp"/>
+    <!-- js -->
+    <jsp:include page="/WEB-INF/common/js_common.jsp"/>
+</head>
+
+<body>
 <div class="content-wrapper" style="min-height: 540px;">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -49,6 +66,8 @@
         </div>
     </section>
 </div>
+
+</body>
 
 <script src="../static/zfk/js/common.js"></script>
 <script src="../static/zfk/js/stomp.js"></script>
@@ -296,3 +315,5 @@
 	}
 	
 </script>
+
+</html>

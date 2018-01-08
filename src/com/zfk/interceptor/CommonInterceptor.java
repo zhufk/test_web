@@ -1,5 +1,7 @@
 package com.zfk.interceptor;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -56,7 +58,9 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
 		// 2、postHandle================");
 		if (modelAndView != null) {
 			// 加入当前时间
-			modelAndView.addObject("var", "测试postHandle");
+			modelAndView.addObject("time", new Date());
+			modelAndView.addObject("publicPath", PropertyUtils.getConfig("publicPath"));
+			modelAndView.addObject("appPath", PropertyUtils.getConfig("appPath"));
 		}
 	}
 

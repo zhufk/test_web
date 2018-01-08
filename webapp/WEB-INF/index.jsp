@@ -8,14 +8,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>和美（深圳）智能机器人知识库系统-登录</title>
-    <!-- 生成HTML Base标签 -->
-<%--     <cn:base/> --%>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <!-- css -->
-    <jsp:include page="/WEB-INF/common/css_common.jsp"/>
-    <!-- js -->
-    <jsp:include page="/WEB-INF/common/js_common.jsp"/>
+    
+    <jsp:include page="/WEB-INF/common/css_common.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/common/js_common.jsp"/>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -45,7 +42,43 @@
                             <i class="fa fa-bell-o"></i>
                             <span class="label label-warning" id="msgTip"></span>
                         </a>
-                        
+                        <%--<ul class="dropdown-menu">--%>
+                        <%--<li class="header">You have 10 notifications</li>--%>
+                        <%--<li>--%>
+                        <%--<!-- inner menu: contains the actual data -->--%>
+                        <%--<ul class="menu">--%>
+                        <%--<li>--%>
+                        <%--<a href="#">--%>
+                        <%--<i class="fa fa-users text-aqua"></i> 5 new members joined today--%>
+                        <%--</a>--%>
+                        <%--</li>--%>
+                        <%--<li>--%>
+                        <%--<a href="#">--%>
+                        <%--<i class="fa fa-warning text-yellow"></i> Very long description here that--%>
+                        <%--may not fit into the--%>
+                        <%--page and may cause design problems--%>
+                        <%--</a>--%>
+                        <%--</li>--%>
+                        <%--<li>--%>
+                        <%--<a href="#">--%>
+                        <%--<i class="fa fa-users text-red"></i> 5 new members joined--%>
+                        <%--</a>--%>
+                        <%--</li>--%>
+                        <%--<li>--%>
+                        <%--<a href="#">--%>
+                        <%--<i class="fa fa-shopping-cart text-green"></i> 25 sales made--%>
+                        <%--</a>--%>
+                        <%--</li>--%>
+                        <%--<li>--%>
+                        <%--<a href="#">--%>
+                        <%--<i class="fa fa-user text-red"></i> You changed your username--%>
+                        <%--</a>--%>
+                        <%--</li>--%>
+                        <%--</ul>--%>
+                        <%--</li>--%>
+                        <%--<li class="footer"><a href="#">View all</a></li>--%>
+                        <%--</ul>--%>
+                    </li>
                     </li>
 
                     <!-- User Account: style can be found in dropdown.less -->
@@ -66,7 +99,7 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a onclick="javascript:go('user/edit_pwd_view')" class="btn btn-default btn-flat">密码修改</a>
+                                    <a onclick="javascript:goSync('user/edit_pwd_view')" class="btn btn-default btn-flat">密码修改</a>
                                 </div>
                                 <div class="pull-right">
                                     <a href="javascript:logout();" class="btn btn-default btn-flat">退&nbsp;&nbsp;出</a>
@@ -169,5 +202,25 @@
 </div>
 <!-- ./wrapper -->
 
+
+<script type="text/javascript">
+    Layout.init(); // init layout
+    initHome();
+    
+    function initHome() {
+        goSync("page/home");
+    };
+    
+    //掉其他页面的hm_resize()方法
+//     function hmResize() {
+//         try {
+//             if (typeof (hm_resize) == "function") {
+//                 setTimeout(hm_resize,300);
+//             }
+//         } catch (e) {
+//         }
+//     }
+
+</script>
 </body>
 </html>

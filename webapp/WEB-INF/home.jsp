@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
-<%@ taglib uri="/WEB-INF/tlds/base.tld" prefix="cn" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <div class="content-wrapper">
@@ -129,34 +128,34 @@
     <!-- 列表结束 -->
 </div>
 <script type="text/javascript">
-    window.clearInterval(autoFushTimer);
-    var autoFushTimer;  // 定时器
-    function autoRefresh() {
-        startTime();
-        autoFushTimer = window.setInterval(
-            function () {
-                if($("#nowDateTimeSpan").length >0 ){
-                    indexInit();
-                }
-            }, 30000);
-    };
-    autoRefresh();
+//     window.clearInterval(autoFushTimer);
+//     var autoFushTimer;  // 定时器
+//     function autoRefresh() {
+//         startTime();
+//         autoFushTimer = window.setInterval(
+//             function () {
+//                 if($("#nowDateTimeSpan").length >0 ){
+//                     indexInit();
+//                 }
+//             }, 30000);
+//     };
+//     autoRefresh();
 
-    function startTime() {
-        var today = new Date();
-        var hh = today.getHours();
-        var mm = today.getMinutes();
-        var ss = today.getSeconds();
-        mm = checkTime(mm);
-        ss = checkTime(ss);
-        $("#nowDateTimeSpan").html(hh + ":" + mm + ":" + ss + "   ");
-        setTimeout('startTime()', 1000);
-    }
+//     function startTime() {
+//         var today = new Date();
+//         var hh = today.getHours();
+//         var mm = today.getMinutes();
+//         var ss = today.getSeconds();
+//         mm = checkTime(mm);
+//         ss = checkTime(ss);
+//         $("#nowDateTimeSpan").html(hh + ":" + mm + ":" + ss + "   ");
+//         setTimeout('startTime()', 1000);
+//     }
 
-    function checkTime(i) {
-        if (i < 10) {
-            i = "0" + i;
-        }
-        return i;
-    }
+//     function checkTime(i) {
+//         if (i < 10) {
+//             i = "0" + i;
+//         }
+//         return i;
+//     }
 </script>

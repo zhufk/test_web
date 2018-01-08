@@ -7,7 +7,6 @@ import javax.annotation.Resource;
 import javax.jms.JMSException;
 import javax.jms.TextMessage;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,6 +15,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.zfk.base.entity.ResultData;
 import com.zfk.entity.MessageData;
 import com.zfk.mq.ConsumerService;
+import com.zfk.mq.MessageCache;
 import com.zfk.mq.ProducerService;
 
 //@Controller
@@ -28,6 +28,9 @@ public class MqController {
 	@Resource
 	ConsumerService consumerService;
 
+	@Resource
+	MessageCache messageCache;
+
 	@RequestMapping({ "send" })
 	@ResponseBody
 	public ResultData send(MessageData data) {
@@ -39,7 +42,7 @@ public class MqController {
 		// data.setContent(message);
 		// data.setUserId("userId1");
 		// data.setUserName("朱富昆");
-		System.out.println("发送消息到q.one==========>"+data.toString());
+		System.out.println("发送消息到q.one==========>" + data.toString());
 		try {
 			producerService.sendMessage("q.one", data.toString());
 			resultData.setSuccess(true);
@@ -49,11 +52,11 @@ public class MqController {
 		return resultData;
 	}
 
-	@RequestMapping({"receive"})
+	@RequestMapping({ "receive" })
 	@ResponseBody
-	public List<MessageData> receive(@RequestParam(value="size", required=false) Integer size) throws Exception {
+	public List<MessageData> receive(@RequestParam(value = "size", required = false) Integer size) throws Exception {
 		List<MessageData> list = new ArrayList<MessageData>();
-		System.out.println("size#############"+size);
+		System.out.println("size#############" + size);
 		if (size == null || size == 0) {
 			size = 10;
 		}
@@ -70,13 +73,14 @@ public class MqController {
 		return list;
 	}
 
-	@RequestMapping({"list_history_message"})
+	@RequestMapping({ "list_history_message" })
 	@ResponseBody
-	public List<MessageData> listHistoryMessage(String userId, @RequestParam(value="size", required=false) Integer size) throws Exception {
+	public List<MessageData> listHistoryMessage(String userId, String robotId,
+			@RequestParam(value = "size", required = false) Integer size) throws Exception {
 		if (size == null || size == 0) {
 			size = 10;
 		}
-		return consumerService.getMessageList4Cache(userId, size);
+		return messageCache.getMessageListByUserIdAndRobotId(userId + "-" + robotId, size);
 	}
 
 }

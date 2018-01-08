@@ -3,13 +3,8 @@ package com.zfk.mq.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jms.core.JmsTemplate;
-import org.springframework.stereotype.Service;
 
-import com.zfk.entity.MessageData;
 import com.zfk.mq.ConsumerService;
-import com.zfk.mq.MessageCache;
-
-import java.util.List;
 
 import javax.annotation.Resource;
 import javax.jms.Destination;
@@ -22,25 +17,19 @@ public class ConsumerServiceImpl implements ConsumerService {
 
 	@Resource
 	private JmsTemplate jmsTemplate;
-	
-	@Resource
-	MessageCache messageCache;
 
 	@Override
-	public TextMessage receive(final String destination) throws JMSException{
+	public TextMessage receive(final String destination) throws JMSException {
 		TextMessage textMessage = (TextMessage) jmsTemplate.receive(destination);
-		logger.info("收到destination消息------------>"+textMessage, new Object[] { destination, textMessage });
+		logger.info("收到destination消息------------>" + textMessage, new Object[] { destination, textMessage });
 		return textMessage;
 	}
 
 	@Override
-	public TextMessage receive(final Destination destination) throws JMSException{
+	public TextMessage receive(final Destination destination) throws JMSException {
 		TextMessage textMessage = (TextMessage) jmsTemplate.receive(destination);
-		logger.info("收到了消息------------>"+textMessage, new Object[] { destination.toString(), textMessage });
+		logger.info("收到了消息------------>" + textMessage, new Object[] { destination.toString(), textMessage });
 		return textMessage;
 	}
 
-	public List<MessageData> getMessageList4Cache(String userId, int size) {
-		return messageCache.getMessageList(userId, size);
-	}
 }

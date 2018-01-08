@@ -31,14 +31,5 @@ public interface ConsumerService{
 	 */
 	TextMessage receive(final Destination destination) throws JMSException;
 	
-	/**
-	 * 取出缓存中的信息
-	 * 方法用途: <br>
-	 * 实现步骤: <br>
-	 * @param userId
-	 * @param size
-	 * @return
-	 */
-	List<MessageData> getMessageList4Cache(String userId, int size);
 
 }

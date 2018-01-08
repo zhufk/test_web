@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
-<%@ taglib uri="/WEB-INF/tlds/base.tld" prefix="cn" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
@@ -10,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>和美（深圳）智能机器人知识库系统-登录</title>
     <!-- 生成HTML Base标签 -->
-    <cn:base/>
+<%--     <cn:base/> --%>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- css -->
@@ -46,43 +45,7 @@
                             <i class="fa fa-bell-o"></i>
                             <span class="label label-warning" id="msgTip"></span>
                         </a>
-                        <%--<ul class="dropdown-menu">--%>
-                        <%--<li class="header">You have 10 notifications</li>--%>
-                        <%--<li>--%>
-                        <%--<!-- inner menu: contains the actual data -->--%>
-                        <%--<ul class="menu">--%>
-                        <%--<li>--%>
-                        <%--<a href="#">--%>
-                        <%--<i class="fa fa-users text-aqua"></i> 5 new members joined today--%>
-                        <%--</a>--%>
-                        <%--</li>--%>
-                        <%--<li>--%>
-                        <%--<a href="#">--%>
-                        <%--<i class="fa fa-warning text-yellow"></i> Very long description here that--%>
-                        <%--may not fit into the--%>
-                        <%--page and may cause design problems--%>
-                        <%--</a>--%>
-                        <%--</li>--%>
-                        <%--<li>--%>
-                        <%--<a href="#">--%>
-                        <%--<i class="fa fa-users text-red"></i> 5 new members joined--%>
-                        <%--</a>--%>
-                        <%--</li>--%>
-                        <%--<li>--%>
-                        <%--<a href="#">--%>
-                        <%--<i class="fa fa-shopping-cart text-green"></i> 25 sales made--%>
-                        <%--</a>--%>
-                        <%--</li>--%>
-                        <%--<li>--%>
-                        <%--<a href="#">--%>
-                        <%--<i class="fa fa-user text-red"></i> You changed your username--%>
-                        <%--</a>--%>
-                        <%--</li>--%>
-                        <%--</ul>--%>
-                        <%--</li>--%>
-                        <%--<li class="footer"><a href="#">View all</a></li>--%>
-                        <%--</ul>--%>
-                    </li>
+                        
                     </li>
 
                     <!-- User Account: style can be found in dropdown.less -->
@@ -131,22 +94,22 @@
                 </div>
             </div>
 
-            <!-- sidebar menu: : style can be found in sidebar.less -->
+			<!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu" data-widget="tree">
-                <li class="header">建行小龙机器人</li>
+                <%--<li class="header">建行小龙机器人</li>--%>
 
                 <c:set var="first" value="true"/>
                 <c:forEach items="${menu}" var="item">
                     <li class="<c:if test='${first}'>active</c:if> treeview">
                         <a href="javaScript:;">
-                            <i class="fa ${item.key.icon}"></i>
-                            <span>${item.key.caption}</span>
+                            <i class="fa ${item.icon}"></i>
+                            <span>${item.caption}</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <c:forEach items="${item.value}" var="child">
+                            <c:forEach items="${item.child}" var="child">
                                 <li class="arrow">
                                     <a href="${child.url}" class="ajaxify">
                                         <i class="fa fa-circle-o"></i> ${child.caption}
@@ -160,6 +123,7 @@
                 </c:forEach>
 
             </ul>
+            
         </section>
         <!-- /.sidebar -->
     </aside>
@@ -183,37 +147,5 @@
 </div>
 <!-- ./wrapper -->
 
-
-<script type="text/javascript">
-    Layout.init(); // init layout
-    indexInit();
-    messageInit('${user.userIdMD}');
-    if ('stomp' != viewTab) {
-        msgTimer = window.setInterval(function () {
-            if ('stomp' != viewTab) {
-                $("#msgTip").html(msgArr.length);
-            } else {
-                $("#msgTip").html('');
-                window.clearInterval(msgTimer);
-            }
-        }, 500);
-    } else {
-        $("#msgTip").html('');
-    }
-
-    function msgStomp() {
-        go('staff_response/list');
-        $("#msgTip").html('');
-    }
-    
-    function hmResize() {
-        try {
-            if (typeof (hm_resize) == "function") {
-                setTimeout(hm_resize,300);
-            }
-        } catch (e) {
-        }
-    }
-</script>
 </body>
 </html>

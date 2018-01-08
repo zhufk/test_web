@@ -32,6 +32,7 @@
   			url : '<%=contenxtPath%>/mq/list_history_message',
   			data : {
   				userId : "userId1",
+  				robotId : "robotId1",
   				size : 10
   			},
   			dataType : 'json',

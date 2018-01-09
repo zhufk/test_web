@@ -12,11 +12,27 @@
 	}
 	
 	.robotSel{
-		background-color: blue;
+		background-color: yellow;
 	}
 	
-	.robotDisSel{
-		background-color: gray;
+	.robotHover{
+		background-color: lightblue;
+	}
+	
+	.textDiv{
+		background-color: white;
+		width:100%;
+		height:100%;
+		overflow:auto;
+	}
+	
+	.userMsg{
+		color: blue;
+		word-wrap: break-word;
+	}
+	
+	.robotMsg{
+		word-wrap: break-word;
 	}
 	
 	
@@ -46,10 +62,8 @@
             </button>
         </div>
         
-        <div style="width:900px;height:400px;border:1px red solid">
+        <div style="width:1000px;height:400px;border:1px red solid">
         	<div id="robotList" style="width:200px;height:400px; border:1px red solid; float:left">
-<!--         		<ul id="robotList" style="padding:2px"> -->
-<!--         		</ul> -->
         	</div>
         	<div style="width:500px;height:400px;border:1px red solid; float:left">
         		<div id="contentList" style="width:500px;height:350px;border:1px red solid">
@@ -65,7 +79,7 @@
 					</button>
         		</div>
         	</div>
-        	<div id="historyList" style="width:198px;height:400px; border:1px red solid; float:left">
+        	<div id="historyList" style="width:298px;height:400px; border:1px red solid; float:left">
         	</div>
         </div>
     </section>
@@ -133,7 +147,8 @@
 	        	send();
 	        });
 	        $('#history').click(function() {
-	        	listHistoryUserAndRobot(currentUserId,currentRobotId,10);
+	        	//取最近50条历史记录
+	        	listHistoryUserAndRobot(currentUserId, currentRobotId, 50);
 	        });
         
       	} else {
@@ -162,7 +177,7 @@
     //获取用户机器人历史消息
   	function listHistoryUserAndRobot(userId, robotId, size){
   		if(robotId != null){
-  			$("#historyList>textarea#"+robotId).empty();
+  			$("#historyList>div#"+robotId).empty();
   	  		$.ajax({
   	  			type : 'post',
   	  			url : '<%=contenxtPath%>/chat/list_history_user_robot',
@@ -268,17 +283,16 @@
 
 	//添加机器人
 	function addRobotList(robotObj, isSelect){
-		debugger
 		if(isSelect == true){
 			$('li.robotLi').removeClass("robotSel");
-			$('textarea.text').hide();
+			$('div.textDiv').hide();
 			$('#robotList').append($("<li class='robotLi robotSel' id='"+robotObj.robotId+"'>"+robotObj.robotName+"("+robotObj.count+")</li>"));
-			$('#contentList').append($("<textarea class='text' id='"+robotObj.robotId+"' style='width:100%; height:100%;'></textarea>"));
-			$('#historyList').append($("<textarea class='text' id='"+robotObj.robotId+"' style='width:100%; height:100%;'></textarea>"));
+			$('#contentList').append($("<div class='textDiv' id='"+robotObj.robotId+"'></div>"));
+			$('#historyList').append($("<div class='textDiv' id='"+robotObj.robotId+"'></div>"));
 		}else{
 			$('#robotList').append($("<li class='robotLi' id='"+robotObj.robotId+"'>"+robotObj.robotName+"("+robotObj.count+")</li>"));
-			$('#contentList').append($("<textarea class='text' id='"+robotObj.robotId+"' style='width:100%; height:100%; display:none'></textarea>"));
-			$('#historyList').append($("<textarea class='text' id='"+robotObj.robotId+"' style='width:100%; height:100%; display:none'></textarea>"));
+			$('#contentList').append($("<div class='textDiv' id='"+robotObj.robotId+"' style='display:none'></div>"));
+			$('#historyList').append($("<div class='textDiv' id='"+robotObj.robotId+"' style='display:none'></div>"));
 		}
 		robotClick();
 	}
@@ -309,11 +323,11 @@
 			//聊天口
 			if($("#"+robotObj.robotId) == undefined){
 				if(robotObj.robotId == selectRobotId){
-					$('#contentList').append($("<textarea class='text' id='"+robotObj.robotId+"' style='width:100%; height:100%;'></textarea>"));
-					$('#historyList').append($("<textarea class='text' id='"+robotObj.robotId+"' style='width:100%; height:100%;'></textarea>"));
+					$('#contentList').append($("<div class='textDiv' id='"+robotObj.robotId+"'></div>"));
+					$('#historyList').append($("<div class='textDiv' id='"+robotObj.robotId+"'></div>"));
 				}else{
-					$('#contentList').append($("<textarea class='text' id='"+robotObj.robotId+"' style='width:100%; height:100%; display:none'></textarea>"));
-					$('#historyList').append($("<textarea class='text' id='"+robotObj.robotId+"' style='width:100%; height:100%; display:none'></textarea>"));
+					$('#contentList').append($("<div class='textDiv' id='"+robotObj.robotId+"' style='display:none'></div>"));
+					$('#historyList').append($("<div class='textDiv' id='"+robotObj.robotId+"' style='display:none'></div>"));
 				}
 			}
 		}
@@ -326,10 +340,10 @@
 		$('li.robotLi').hover(function()
         {
        		//$('li.robotLi').removeClass('robotSel');
-            //$(this).addClass('robotSel');
+            $(this).addClass('robotHover');
         }, function()
         {
-            //$(this).removeClass('robotSel');
+            $(this).removeClass('robotHover');
         }).on('click',function(){
         	$('li.robotLi').removeClass('robotSel');
         	$(this).addClass('robotSel');
@@ -338,8 +352,8 @@
     		var robotName = text.substring(0,text.lastIndexOf("("));
     		currentRobotId = robotId;
     		currentRobotName = robotName;
-    		$('textarea.text').hide();
-    		$('textarea#'+robotId).show();
+    		$('div.textDiv').hide();
+    		$('div#'+robotId).show();
 		});
 	}
 	
@@ -352,16 +366,16 @@
 			time = dateFormat(time);
 		}
 		if(type == 1){
-			$("#contentList>textarea#"+data.robotId).append(
-					data.userName + '  ' + time + '\n' + data.content + '\n');
+			$("#contentList>div#"+data.robotId).append('<div class="userMsg">'+
+					data.userName + '   ' + time + '<br>' + data.content + '</div>');
 		}else{
-			$("#contentList>textarea#"+data.robotId).append(
-					data.robotName + '  ' + time + '\n' + data.content + '\n');
+			$("#contentList>div#"+data.robotId).append('<div class="robotMsg">'+
+					data.robotName + '   ' + time + '<br>' + data.content + '</div');
 		}
 		
 		//至底
-		var scrollTop = $("#contentList>textarea#"+data.robotId)[0].scrollHeight;
-		$("#contentList>textarea#"+data.robotId).scrollTop(scrollTop);
+		var scrollTop = $("#contentList>div#"+data.robotId)[0].scrollHeight;
+		$("#contentList>div#"+data.robotId).scrollTop(scrollTop);
 	}
 	
 	//添加历史信息到内容框
@@ -376,16 +390,16 @@
 				time = dateFormat(time);
 			}
 			if(data.type == 1){
-				$("#historyList>textarea#"+data.robotId).append(
-						data.userName + '  ' + time + '\n' + data.content + '\n');
+				$("#historyList>div#"+data.robotId).append('<div class="userMsg">'+
+						data.userName + '   ' + time + '<br>' + data.content + '</div>');
 			}else{
-				$("#historyList>textarea#"+data.robotId).append(
-						data.robotName + '  ' + time + '\n' + data.content + '\n');
+				$("#historyList>div#"+data.robotId).append('<div class="robotMsg">'+
+						data.robotName + '   ' + time + '<br>' + data.content + '</div');
 			}
 			
 			//至底
-			var scrollTop = $("#historyList>textarea#"+data.robotId)[0].scrollHeight;
-			$("#historyList>textarea#"+data.robotId).scrollTop(scrollTop);
+			var scrollTop = $("#historyList>div#"+data.robotId)[0].scrollHeight;
+			$("#historyList>div#"+data.robotId).scrollTop(scrollTop);
 		}
 	}
 	

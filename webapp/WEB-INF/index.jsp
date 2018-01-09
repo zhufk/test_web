@@ -202,16 +202,19 @@
 </div>
 <!-- ./wrapper -->
 
-
+<script  src="${publicPath}/assets/js/stomp.js"></script>
+<script  src="${appPath}/js/chat.js"></script>
 <script type="text/javascript">
     Layout.init(); // init layout
+    //初始化主页面
     initHome();
     
     function initHome() {
         goSync("page/home");
     };
     
-    
+    //初始化人工客服，chat.js
+    initChat();
     
     
     //掉其他页面的hm_resize()方法

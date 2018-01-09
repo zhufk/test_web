@@ -36,20 +36,10 @@
 	}
 	
 	
-	
 </style>
 
+
 <div class="content-wrapper" style="min-height: 540px;">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-<!--         <h1 style="font-family: KaiTi_GB2312">聊天</h1> -->
-<!--         <ol class="breadcrumb"> -->
-<%--             <li><a href="${pageContext.request.contextPath}/index"><i --%>
-<!--                     class="fa fa-dashboard"></i> 首页</a></li> -->
-<!--             <li><a href="#">人工客服</a></li> -->
-<!--             <li class="active">聊天</li> -->
-<!--         </ol> -->
-    </section>
 
     <!-- Main content -->
     <section class="content">
@@ -97,7 +87,6 @@
 	
 	var client;
 	var receiveDest;
-	var Dest;
 	
   	$(document).ready(function() {
   		if(window.WebSocket) {
@@ -144,7 +133,7 @@
 	   
 	    	//发送
 	        $('#send').click(function() {
-	        	send();
+	        	sendMessage();
 	        });
 	        $('#history').click(function() {
 	        	//取最近50条历史记录
@@ -155,6 +144,12 @@
 	    	$("body").html("<h1>Your browser does not support WebSockets. This example will not work properly.");
 	  	}
     });
+  	
+  	function goodbye(){
+  		alert(client);
+  		client.disconnect(function() {
+      	});
+  	}
   	
   	//获取用户历史消息
   	function listHistoryUser(userId, size){
@@ -210,7 +205,7 @@
   	
   	/////////////////////////////////////////////////////////////
   	//发送
-	function send() {
+	function sendMessage() {
   		if(currentRobotId != null){
   			var time = dateFormat(new Date());
   			var content = $("#messageInput").val();

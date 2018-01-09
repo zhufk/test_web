@@ -2,7 +2,6 @@ package com.zfk.entity;
 
 
 import java.io.Serializable;
-import java.util.Date;
 import com.alibaba.fastjson.JSONObject;
 
 public class MessageData implements Serializable{
@@ -19,7 +18,10 @@ public class MessageData implements Serializable{
 	/*内容*/
 	String content;
 	/*时间*/
-	Date time;
+	String time;
+	
+	/*类型：0，问；1答*/
+	String type;
 	
 	public String getRobotId() {
 		return robotId;
@@ -51,13 +53,18 @@ public class MessageData implements Serializable{
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getTime() {
+	public String getTime() {
 		return time;
 	}
-	public void setTime(Date time) {
+	public void setTime(String time) {
 		this.time = time;
 	}
-	
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
 	@Override
 	public String toString() {
 		return JSONObject.toJSONString(this);

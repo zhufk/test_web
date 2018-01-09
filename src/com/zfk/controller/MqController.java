@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import javax.jms.JMSException;
 import javax.jms.TextMessage;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,11 +16,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.zfk.base.entity.ResultData;
 import com.zfk.entity.MessageData;
 import com.zfk.mq.ConsumerService;
-import com.zfk.mq.MessageCache;
 import com.zfk.mq.ProducerService;
 
-//@Controller
-//@RequestMapping("/mq")
+@Controller
+@RequestMapping("/mq")
 public class MqController {
 
 	@Resource
@@ -27,9 +27,6 @@ public class MqController {
 
 	@Resource
 	ConsumerService consumerService;
-
-	@Resource
-	MessageCache messageCache;
 
 	@RequestMapping({ "send" })
 	@ResponseBody
@@ -71,16 +68,6 @@ public class MqController {
 			}
 		} while (message != null && list.size() <= size);
 		return list;
-	}
-
-	@RequestMapping({ "list_history_message" })
-	@ResponseBody
-	public List<MessageData> listHistoryMessage(String userId, String robotId,
-			@RequestParam(value = "size", required = false) Integer size) throws Exception {
-		if (size == null || size == 0) {
-			size = 10;
-		}
-		return messageCache.getMessageListByUserIdAndRobotId(userId + "-" + robotId, size);
 	}
 
 }

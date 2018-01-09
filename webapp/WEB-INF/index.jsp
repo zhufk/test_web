@@ -38,7 +38,7 @@
                     <li class="dropdown messages-menu">
                         <!-- Notifications: style can be found in dropdown.less -->
                     <li class="dropdown notifications-menu">
-                        <a href="javascript:msgStomp();" class="dropdown-toggle" data-toggle="dropdown">
+                        <a onclick="javascript:goSync('page?page=chat/chat2')" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-bell-o"></i>
                             <span class="label label-warning" id="msgTip"></span>
                         </a>
@@ -140,13 +140,13 @@
                     </a>
                     <ul class="treeview-menu">
                         <li class="arrow">
-                            <a href="chat/chat" class="ajaxify">
-                                <i class="fa fa-circle-o"></i> 聊天
+                            <a href="page?page=chat/chat1" class="ajaxify">
+                                <i class="fa fa-circle-o"></i> 聊天1
                             </a>
                         </li>
                         <li class="arrow">
-                            <a href="page/mq" class="ajaxify">
-                                <i class="fa fa-circle-o"></i> 聊天
+                            <a href="page?page=chat/chat2" class="ajaxify">
+                                <i class="fa fa-circle-o"></i> 聊天2
                             </a>
                         </li>
                     </ul>
@@ -210,6 +210,9 @@
     function initHome() {
         goSync("page/home");
     };
+    
+    
+    
     
     //掉其他页面的hm_resize()方法
 //     function hmResize() {

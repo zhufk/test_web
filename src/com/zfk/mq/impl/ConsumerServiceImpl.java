@@ -3,6 +3,7 @@ package com.zfk.mq.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.stereotype.Service;
 
 import com.zfk.mq.ConsumerService;
 
@@ -11,7 +12,7 @@ import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.TextMessage;
 
-//@Service
+@Service
 public class ConsumerServiceImpl implements ConsumerService {
 	private static final Logger logger = LoggerFactory.getLogger(ConsumerServiceImpl.class);
 

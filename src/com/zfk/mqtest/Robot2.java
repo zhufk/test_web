@@ -11,6 +11,7 @@ import javax.jms.TextMessage;
 import org.apache.activemq.command.ActiveMQBytesMessage;
 import org.apache.activemq.util.ByteSequence;
 
+import com.zfk.base.util.DateUtils;
 import com.zfk.entity.MessageData;
 import com.zfk.mqtest.base.Receiver;
 import com.zfk.mqtest.base.Sender;
@@ -23,7 +24,7 @@ public class Robot2 {
 			public void run() {
 				Sender sender = new Sender();
 				sender.init("chat-one",2);
-				for (;;) {
+				for (int i=1;i<1000;i++) {
 					Scanner scan = new Scanner(System.in);
 					System.out.println("Robot2：请输入信息：回车");
 					String lineStr = scan.nextLine();
@@ -35,8 +36,9 @@ public class Robot2 {
 					data.setRobotName("小龙人2号");
 					data.setUserId("userId1");
 					data.setUserName("朱富昆");
-					data.setContent("你好，我是小龙人2号！");
-					data.setTime(new Date());
+					data.setType("0");
+					data.setContent("你好，我是小龙人2号-"+i);
+					data.setTime(DateUtils.formatDate(new Date(), DateUtils.SECOND));
 					String msg = data.toString();
 		    		try {
 		    			System.out.println("Robot2发送信息:"+msg);
@@ -58,11 +60,11 @@ public class Robot2 {
             	if(msg instanceof ActiveMQBytesMessage){
             		ActiveMQBytesMessage message = (ActiveMQBytesMessage)msg;
             		ByteSequence byteSequence = message.getContent();
-            		System.out.println("Robot2：接收消息1====="+new String(byteSequence.data));
+            		System.out.println("Robot2：接收消息====="+new String(byteSequence.data));
             	}else{
             		TextMessage message = (TextMessage)msg;  
                     try {
-    					System.out.println("Robot2：接收消息2=====" + message.getText());
+    					System.out.println("Robot2：接收消息=====" + message.getText());
     				} catch (JMSException e) {
     					e.printStackTrace();
     				}

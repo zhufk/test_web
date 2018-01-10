@@ -61,7 +61,7 @@
         		</div>
         		<div id="sendContent" style="width:500px;height:50px;border:1px red solid">
         			<input id="messageInput" type="text" style="width:300px"
-						name="message" onkeyup="eKeyup(event)" />
+						name="message" onkeyup="CHAT.eKeyup(event)" />
 					<button id="send" type="button" >
 						<i class="fa fa-refresh"></i> 发送
 					</button>
@@ -80,15 +80,15 @@
 	
 	$(function(){
 		
-		initChatPage();
+		CHAT.initChatPage();
 		
 		//发送
 	    $('#send').click(function() {
-	    	sendMessage();
+	    	CHAT.sendMessage();
 	    });
 		$('#history').click(function() {
 	     	//取最近50条历史记录
-	     	listHistoryUserAndRobot(currentUserId, currentRobotId, 50);
+	     	CHAT.listHistoryUserAndRobot(CHAT.currentUserId, CHAT.currentRobotId, 50);
 	    });
 		
 	});

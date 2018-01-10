@@ -86,18 +86,16 @@
 	var currentRobotName = null;
 	
 	var client;
-	var receiveDest;
+	var url = 'ws://localhost:61614';
+    var login = 'admin';
+    var passcode = 'admin';
+    var receiveDest = '/topic/chat-one';
+    var sendDest = '/topic/chat-two';
 	
   	$(document).ready(function() {
   		if(window.WebSocket) {
 	    	//连接
 	        $('#connect').click(function() {
-	        	var url = 'ws://localhost:61614';
-	            var login = 'admin';
-	            var passcode = 'admin';
-	          
-	            receiveDest = '/topic/chat-one';
-	            sendDest = '/topic/chat-two';
 	
 	            client = Stomp.client(url);
 	

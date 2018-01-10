@@ -133,24 +133,23 @@
                 <li class="active treeview">
                     <a href="javaScript:;">
                         <i class="fa fa-gears"></i>
-                        <span>测试</span>
+                        <span>聊天</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
                     <ul class="treeview-menu">
                         <li class="arrow">
-                            <a href="page?page=chat/chat1" class="ajaxify">
-                                <i class="fa fa-circle-o"></i> 聊天1
+                            <a href="page?page=chat/chat0" class="ajaxify">
+                                <i class="fa fa-circle-o"></i> 聊天独立
                             </a>
                         </li>
                         <li class="arrow">
                             <a href="page?page=chat/chat2" class="ajaxify">
-                                <i class="fa fa-circle-o"></i> 聊天2
+                                <i class="fa fa-circle-o"></i> 聊天关联主页面
                             </a>
                         </li>
                     </ul>
-
                 </li>
 
                 <c:set var="first" value="true"/>
@@ -203,7 +202,7 @@
 <!-- ./wrapper -->
 
 <script  src="${publicPath}/assets/js/stomp.js"></script>
-<script  src="${appPath}/js/chat.js"></script>
+<script  src="${appPath}/js/chatT.js"></script>
 <script type="text/javascript">
     Layout.init(); // init layout
     //初始化主页面
@@ -214,7 +213,7 @@
     };
     
     //初始化人工客服，chat.js
-    initChat();
+    CHAT.initChat();
     
     
     //掉其他页面的hm_resize()方法

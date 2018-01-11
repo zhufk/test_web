@@ -24,7 +24,7 @@ public class Robot1 {
 			public void run() {
 				Sender sender = new Sender();
 				//sender.init("q.one",1);
-				sender.init("chat-one",2);
+				sender.init("robot-user",2);
 				for (int i=1;i<1000;i++) {
 					Scanner scan = new Scanner(System.in);
 					System.out.println("Robot1：请输入信息：回车");
@@ -60,7 +60,7 @@ public class Robot1 {
 		
 		Receiver receiver = new Receiver();
 		//receiver.init("q.two",1);
-		receiver.init("chat-two",2);
+		receiver.init("user-robot",2);
 		receiver.receive(new MessageListener(){
             @Override
             public void onMessage(Message msg) {  

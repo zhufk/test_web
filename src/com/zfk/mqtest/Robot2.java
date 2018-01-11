@@ -23,7 +23,7 @@ public class Robot2 {
 			@Override
 			public void run() {
 				Sender sender = new Sender();
-				sender.init("chat-one",2);
+				sender.init("robot-user",2);
 				for (int i=1;i<1000;i++) {
 					Scanner scan = new Scanner(System.in);
 					System.out.println("Robot2：请输入信息：回车");
@@ -53,7 +53,7 @@ public class Robot2 {
 		}.start();
 		
 		Receiver receiver = new Receiver();
-		receiver.init("chat-two",2);
+		receiver.init("user-robot",2);
 		receiver.receive(new MessageListener(){
             @Override
             public void onMessage(Message msg) {  

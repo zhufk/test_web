@@ -18,8 +18,8 @@ CHAT = {
 	url : 'ws://localhost:61614',
 	login : 'admin',
 	passcode : 'admin',
-	receiveDest : '/topic/chat-one',
-	sendDest : '/topic/chat-two',
+	receiveDest : '/topic/robot-user',
+	sendDest : '/topic/user-robot',
 	
 	//初始化聊天功能
 	initChat : function() {

@@ -36,6 +36,7 @@ CHAT = {
 	    		CHAT.client.debug("connected to Stomp");
 	        	//订阅主题并注册消息接收处理事件  
 	        	CHAT.client.subscribe(CHAT.receiveDest, function(message) {
+	        		console.log(message.body);
 	        		var data = JSON.parse(message.body);
 	        		if(data.userId == CHAT.currentUserId){
 	        			if($("#chatDiv").length == 0){

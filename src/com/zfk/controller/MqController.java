@@ -18,7 +18,7 @@ import com.zfk.entity.MessageData;
 import com.zfk.mq.ConsumerService;
 import com.zfk.mq.ProducerService;
 
-@Controller
+//@Controller
 @RequestMapping("/mq")
 public class MqController {
 

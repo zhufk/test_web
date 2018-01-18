@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.workway.robot.core.dao.WayMessagePublishMapper">
+    <resultMap id="BaseResultMap"
+               type="com.workway.robot.base.entity.WayMessagePublishDO">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="message_id" property="messageId" jdbcType="VARCHAR"/>
+        <result column="message_title" property="messageTitle"
+                jdbcType="VARCHAR"/>
+        <result column="begin_time" property="beginTime" jdbcType="TIMESTAMP"/>
+        <result column="end_time" property="endTime" jdbcType="TIMESTAMP"/>
+        <result column="publish_status" property="publishStatus"
+                jdbcType="TINYINT"/>
+        <result column="first_sort" property="firstSort" jdbcType="TINYINT"/>
+        <result column="is_deleted" property="deleted" jdbcType="BIT"/>
+        <result column="subsystem_id" property="subsystemId" jdbcType="VARCHAR"/>
+        <result column="modified_by" property="modifiedBy" jdbcType="BIGINT"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="modified_time" property="modifiedTime"
+                jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs"
+               type="com.workway.robot.base.entity.WayMessagePublishDO" extends="BaseResultMap">
+        <result column="message_content" property="messageContent"
+                jdbcType="LONGVARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+		id, message_id, message_title, message_content,
+		begin_time, end_time,
+		publish_status, first_sort, is_deleted, subsystem_id,
+		modified_by, create_time, modified_time
+	</sql>
+
+    <select id="getByPrimaryKey" resultMap="ResultMapWithBLOBs"
+            parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from way_message_publish
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		way_message_publish
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+
+    <insert id="insert" parameterType="com.workway.robot.base.entity.WayMessagePublishDO">
+        <selectKey keyProperty="messageId" resultType="String"
+                   order="BEFORE">
+            select replace(uuid(),'-','') from dual
+        </selectKey>
+        insert into way_message_publish
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="messageId != null">
+                message_id,
+            </if>
+            <if test="messageTitle != null">
+                message_title,
+            </if>
+            <if test="messageContent != null">
+                message_content,
+            </if>
+            <if test="beginTime != null">
+                begin_time,
+            </if>
+            <if test="endTime != null">
+                end_time,
+            </if>
+            <if test="publishStatus != null">
+                publish_status,
+            </if>
+            <if test="firstSort != null">
+                first_sort,
+            </if>
+            <if test="deleted != null">
+                is_deleted,
+            </if>
+            <if test="subsystemId != null">
+                subsystem_id,
+            </if>
+            <if test="modifiedBy != null">
+                modified_by,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="modifiedTime != null">
+                modified_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="messageId != null">
+                #{messageId,jdbcType=VARCHAR},
+            </if>
+            <if test="messageTitle != null">
+                #{messageTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="messageContent != null">
+                #{messageContent,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="beginTime != null">
+                #{beginTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="publishStatus != null">
+                #{publishStatus,jdbcType=TINYINT},
+            </if>
+            <if test="firstSort != null">
+                #{firstSort,jdbcType=TINYINT},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=BIT},
+            </if>
+            <if test="subsystemId != null">
+                #{subsystemId,jdbcType=VARCHAR},
+            </if>
+            <if test="modifiedBy != null">
+                #{modifiedBy,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifiedTime != null">
+                #{modifiedTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.workway.robot.base.entity.WayMessagePublishDO">
+        update way_message_publish
+        <set>
+            <if test="messageTitle != null">
+                message_title = #{messageTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="messageContent != null">
+                message_content = #{messageContent,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="beginTime != null">
+                begin_time = #{beginTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                end_time = #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="publishStatus != null">
+                publish_status = #{publishStatus,jdbcType=TINYINT},
+            </if>
+            <if test="firstSort != null">
+                first_sort = #{firstSort,jdbcType=TINYINT},
+            </if>
+            <if test="deleted != null">
+                is_deleted = #{deleted,jdbcType=BIT},
+            </if>
+            <if test="modifiedBy != null">
+                modified_by = #{modifiedBy,jdbcType=BIGINT},
+            </if>
+            <if test="modifiedTime != null">
+                modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where message_id = #{messageId,jdbcType=VARCHAR}
+    </update>
+
+    <!-- 追加作用域 -->
+    <resultMap id="ResultMapWithActioinScopes"
+               type="com.workway.robot.base.entity.WayMessagePublishDO" extends="ResultMapWithBLOBs">
+        <collection property="actionScopes" javaType="java.util.List"
+                    ofType="com.workway.robot.base.entity.WayRobotActionScopeDO">
+            <result column="id" property="id" jdbcType="BIGINT"/>
+            <result column="use_type" property="useType" jdbcType="TINYINT"/>
+            <result column="use_id" property="useId" jdbcType="VARCHAR"/>
+            <result column="scope_type" property="scopeType" jdbcType="BIT"/>
+            <result column="scope_id" property="scopeId" jdbcType="VARCHAR"/>
+            <result column="scope_name" property="scopeName" jdbcType="VARCHAR"/>
+            <result column="subsystem_id" property="subsystemId" jdbcType="VARCHAR"/>
+            <result column="modified_by" property="modifiedBy" jdbcType="BIGINT"/>
+            <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+            <result column="modified_time" property="modifiedTime"
+                    jdbcType="TIMESTAMP"/>
+        </collection>
+    </resultMap>
+
+    <sql id="Main_Column_List">
+		a.id, a.message_id, a.message_title, a.message_content,
+		a.begin_time, a.end_time,
+		a.publish_status, a.first_sort, a.is_deleted,
+		a.subsystem_id, a.modified_by,
+		a.create_time, a.modified_time
+	</sql>
+    <sql id="Slave_Column_List">
+		b.id, b.use_type, b.use_id, b.scope_type,
+		b.scope_id,
+		(select c.name from
+			(select robot_id id, nick_name name
+			FROM way_robot_manage where is_deleted = 0
+			UNION
+			select robot_type_id id,
+			robot_type_name name
+			FROM way_robot_type where is_deleted = 0
+			UNION
+			select install_site_id id, site_name name
+			FROM way_robot_install_site where is_deleted = 0) c
+		where b.scope_id = c.id) scope_name,
+		b.subsystem_id, b.modified_by,
+		b.create_time, b.modified_time
+	</sql>
+
+    <sql id='Main_Table_Filter_ScopeName'>
+        (SELECT * from way_message_publish T1 where message_id IN
+        (SELECT DISTINCT(T2.use_id) from
+        (SELECT use_id,
+        (SELECT c.name FROM
+        (SELECT robot_id id, nick_name name
+        FROM way_robot_manage WHERE is_deleted = 0
+        UNION
+        SELECT robot_type_id id, robot_type_name name
+        FROM way_robot_type WHERE is_deleted = 0
+        UNION
+        SELECT install_site_id id, site_name name
+        FROM way_robot_install_site WHERE is_deleted = 0
+        ) c
+        WHERE scope_id = c.id) scope_name
+        from way_robot_action_scope where use_type=4) T2 where 1=1
+        <if test="scopeName != null and scopeName != ''">
+            AND LOCATE(#{scopeName,jdbcType=VARCHAR},scope_name) > 0
+        </if>
+        )
+        OR message_id IN 
+        (SELECT T3.message_id FROM way_message_publish T3
+		WHERE NOT EXISTS (SELECT id FROM way_robot_action_scope T4
+		WHERE T3.message_id = T4.use_id)
+		)
+        ) T
+    </sql>
+    
+    <sql id='Main_Table_Filter_ScopeIds'>
+        (SELECT * from way_message_publish T1 where message_id IN
+        (SELECT DISTINCT(T2.use_id)
+        from way_robot_action_scope T2 where use_type=4
+        <if test="scopeIds != null and scopeIds.size() > 0">
+            AND T2.scope_id IN
+            <foreach collection="scopeIds" index="index" item="id" open="(" close=")" separator=",">
+			   #{id}
+			</foreach>
+        </if>
+        )
+        OR message_id IN
+        (SELECT T3.message_id FROM way_message_publish T3
+		WHERE NOT EXISTS (SELECT id FROM way_robot_action_scope T4
+		WHERE T3.message_id = T4.use_id)
+		)
+        ) T
+    </sql>
+
+    <select id="getByMessageId" resultMap="ResultMapWithActioinScopes"
+            parameterType="java.lang.String">
+        select
+        <include refid="Main_Column_List"/>
+        ,
+        <include refid="Slave_Column_List"/>
+        from way_message_publish a left join way_robot_action_scope b on
+        a.message_id = b.use_id where a.message_id =
+        #{messageId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="listByPage" resultMap="ResultMapWithActioinScopes"
+            parameterType="java.util.Map">
+        select
+        <include refid="Main_Column_List"/>
+        ,
+        <include refid="Slave_Column_List"/>
+        from
+        (select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="Main_Table_Filter_ScopeIds"/>
+        <where>
+            IS_DELETED = 0
+            <if test="messageTitle != null and messageTitle != ''">
+                AND
+                LOCATE(#{messageTitle,jdbcType=VARCHAR},message_title) > 0
+            </if>
+            <if test="messageContent != null and messageContent != ''">
+                AND
+                LOCATE(#{messageContent,jdbcType=VARCHAR},message_content) > 0
+            </if>
+            <if test="beginTime != null and beginTime != ''">
+                AND begin_time &gt;= #{beginTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="endTime != null and endTime != ''">
+                AND end_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="publishStatus != null and publishStatus != ''">
+                AND publish_status = #{publishStatus,jdbcType=TINYINT}
+            </if>
+            <if test="firstSort != null and firstSort != ''">
+                AND first_sort = #{firstSort,jdbcType=TINYINT}
+            </if>
+            <if test="subsystemId != null and subsystemId != ''">
+                AND subsystem_id = #{subsystemId,jdbcType=VARCHAR}
+            </if>
+            <if test="modifiedBy != null">
+                AND modified_by = #{modifiedBy,jdbcType=BIGINT}
+            </if>
+        </where>
+        order by create_time DESC limit
+        #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+        ) a
+        left join
+        way_robot_action_scope b on
+        a.message_id = b.use_id
+        ORDER BY
+        a.create_time DESC
+    </select>
+
+    <select id="countAll" resultType="java.lang.Integer"
+            parameterType="java.util.Map">
+        select count(id) from
+        <include refid="Main_Table_Filter_ScopeIds"/>
+        <where>
+            IS_DELETED = 0
+            <if test="messageTitle != null and messageTitle != ''">
+                AND
+                LOCATE(#{messageTitle,jdbcType=VARCHAR},message_title) > 0
+            </if>
+            <if test="messageContent != null and messageContent != ''">
+                AND
+                LOCATE(#{messageContent,jdbcType=VARCHAR},message_content) > 0
+            </if>
+            <if test="beginTime != null and beginTime != ''">
+                AND begin_time &gt;= #{beginTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="endTime != null and endTime != ''">
+                AND end_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="publishStatus != null and publishStatus != ''">
+                AND publish_status = #{publishStatus,jdbcType=TINYINT}
+            </if>
+            <if test="firstSort != null and firstSort != ''">
+                AND first_sort = #{firstSort,jdbcType=TINYINT}
+            </if>
+            <if test="subsystemId != null and subsystemId != ''">
+                AND subsystem_id = #{subsystemId,jdbcType=VARCHAR}
+            </if>
+            <if test="modifiedBy != null">
+                AND modified_by = #{modifiedBy,jdbcType=BIGINT}
+            </if>
+        </where>
+    </select>
+
+    <select id="list" resultMap="ResultMapWithActioinScopes"
+            parameterType="com.workway.robot.base.entity.WayMessagePublishDO">
+        select
+        <include refid="Main_Column_List"/>
+        ,
+        <include refid="Slave_Column_List"/>
+        from
+        (select
+        <include refid="Base_Column_List"/>
+        from way_message_publish
+        <where>
+            IS_DELETED = 0
+            <if test="messageTitle != null">
+                AND
+                LOCATE(#{messageTitle,jdbcType=VARCHAR},message_title) > 0
+            </if>
+            <if test="messageContent != null">
+                AND
+                LOCATE(#{messageContent,jdbcType=VARCHAR},message_content) > 0
+            </if>
+            <if test="beginTime != null">
+                AND begin_time &gt;= #{beginTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="endTime != null">
+                AND end_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="publishStatus != null">
+                AND publish_status = #{publishStatus,jdbcType=TINYINT}
+            </if>
+            <if test="firstSort != null">
+                AND first_sort = #{firstSort,jdbcType=TINYINT}
+            </if>
+            <if test="subsystemId != null">
+                AND subsystem_id = #{subsystemId,jdbcType=VARCHAR}
+            </if>
+            <if test="modifiedBy != null">
+                AND modified_by = #{modifiedBy,jdbcType=BIGINT}
+            </if>
+        </where>
+        ORDER BY a.create_time DESC
+        ) a left join way_robot_action_scope b on
+        a.message_id = b.use_id
+        ORDER BY a.create_time DESC
+    </select>
+
+</mapper>

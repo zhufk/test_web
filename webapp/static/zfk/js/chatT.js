@@ -207,6 +207,7 @@ CHAT = {
 				CHAT.robotObjList.push(robotObj);
 				
 				if(CHAT.currentRobotId == null){
+					robotObj.count = 0;
 					CHAT.currentRobotId = robotId;
 					CHAT.currentRobotName = robotName;
 					//添加机器人列表，并选中
@@ -290,8 +291,8 @@ CHAT = {
 			}
 			
 			//聊天内容与历史窗口切换
-			$('div.textDiv').hide();
-			$('div#'+robotId).show();
+			$('#contentList>div#'+robotId).show();
+			$('#historyList>div#'+robotId).show();
 		});
 	},
 

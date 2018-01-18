@@ -27,7 +27,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
      </resultMap>
      
      
-     
  	 <!--     插入一本书-->
      <insert id="insertBook" parameterType="com.zfk.entity.Book" >
          insert into zfk_book(id,name,user_id) values (#{id},#{name},#{userId})    

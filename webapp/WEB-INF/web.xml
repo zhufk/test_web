@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
-    http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+        http://java.sun.com/xml/ns/javaee/web-app_3_1.xsd"
+	version="3.1">
+
+	<!-- WebSocket 需要Servlet3.0 需要web.xml 3.0及以上，并要配置此 -->
+	<!-- <absolute-ordering /> -->
 
 	<!-- 配置web.xml，使其具有springmvc特性，主要配置两处，一个是ContextLoaderListener，一个是DispatcherServlet -->
 
@@ -11,7 +14,7 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 			classpath*:applicationContext.xml
-			classpath*:spring-activemq.xml
+			<!-- classpath*:spring-activemq.xml -->
 		</param-value>
 	</context-param>
 	<!-- 配置ContextLoaderListener表示，该工程要以spring的方式启动。启动时会默认在/WEB-INF目录下查找applicationContext.xml 
@@ -20,17 +23,20 @@
 		MVC容器只管理和它本身相关的东西，像数据源、事务管理以及自己程序中需要用到的Bean等可以用Spring的IOC容器来管理 -->
 	<!-- Spring监听器 -->
 	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+		<listener-class>org.springframework.web.context.ContextLoaderListener
+		</listener-class>
 	</listener>
 	<!-- 防止Spring内存溢出监听器 -->
 	<listener>
-		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+		<listener-class>org.springframework.web.util.IntrospectorCleanupListener
+		</listener-class>
 	</listener>
 
 	<!-- 字符集过滤器 -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
-		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter
+		</filter-class>
 		<init-param>
 			<param-name>encoding</param-name>
 			<param-value>UTF-8</param-value>
@@ -46,14 +52,14 @@
 	</filter-mapping>
 
 
-
 	<!-- spring mvc 配置 -->
 	<!-- 配置DispatcherServlet表示，该工程将采用springmvc的方式。启动时也会默认在/WEB-INF目录下查找XXX-servlet.xml作为配置文件， 
 		XXX就是DispatcherServlet的名字，该文件中将配置两项重要的mvc特性：HandlerMapping,负责为DispatcherServlet这个前端控制器的请求查找Controller； 
 		ViewResolver,负责为DispatcherServlet查找ModelAndView的视图解析器。 此处使用指定的配置文件spring-servlet.xml -->
 	<servlet>
 		<servlet-name>springmvcservlet</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<!--<param-value>/WEB-INF/classes/spring-mvc-servlet.xml</param-value> -->
@@ -66,7 +72,8 @@
 		<!-- 所有的的请求，都会被DispatcherServlet处理 -->
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-	
+
+	<!-- 允许访问文件类型映射 -->
 	<servlet-mapping>
 		<servlet-name>default</servlet-name>
 		<url-pattern>*.html</url-pattern>

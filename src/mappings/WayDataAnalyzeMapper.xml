@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.workway.robot.core.dao.WayDataAnalyzeMapper">
+
+    <select id="listScoreGroupCount" parameterType="java.util.Map" resultType="java.util.Map">
+        select (case
+        when score >0 AND score&lt;= 4 THEN 4
+        when score >4 AND score&lt;= 6 THEN 6
+        when score >6 AND score&lt;= 8 THEN 8
+        when score >8 AND score&lt;= 10 THEN 10
+        when score > 10 THEN 100
+        end) score,
+        count(1) count from way_robot_question_answer_log
+        where 1=1
+        <if test="subsystemId != null">
+            AND subsystem_id = #{subsystemId,jdbcType=VARCHAR}
+        </if>
+        <if test="beginTime != null">
+            AND create_time &gt;= #{beginTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="endTime != null">
+            AND create_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+        </if>
+        group by
+        (case
+        when score >0 AND score&lt;= 4 THEN 4
+        when score >4 AND score&lt;= 6 THEN 6
+        when score >6 AND score&lt;= 8 THEN 8
+        when score >8 AND score&lt;= 10 THEN 10
+        when score >10 THEN 100
+        end)
+        order by score desc;
+    </select>
+
+    <select id="listTypeScoreGroupAvg" parameterType="java.util.Map"
+            resultType="java.util.Map">
+        SELECT CAST(T.gkb_type AS char) type,T.date time, avg(T.score) score from
+        (
+        SELECT
+        date_format(create_time, '%Y-%m-%d') date,
+        score,
+        gkb_type,
+        subsystem_id
+        FROM
+        way_robot_question_answer_log
+        where 1=1
+        <if test="subsystemId != null">
+            AND subsystem_id = #{subsystemId,jdbcType=VARCHAR}
+        </if>
+        <if test="beginTime != null">
+            AND create_time &gt;= #{beginTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="endTime != null">
+            AND create_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+        </if>
+        ) T GROUP BY T.gkb_type, T.date
+    </select>
+
+
+    <select id="listRobotGroupCount" parameterType="java.util.Map"
+            resultType="java.util.Map">
+        SELECT
+        T.robot_id robotId,
+        (SELECT a.nick_name from way_robot_manage a where a.robot_id = T.robot_id) robotName,
+        T.install_site_id siteId,
+        (SELECT b.site_name from way_robot_install_site b where b.install_site_id = T.install_site_id) siteName,
+        COUNT(robot_id) count
+        FROM
+        way_robot_question_answer_log T
+        where 1=1
+        <if test="subsystemId != null">
+            AND subsystem_id = #{subsystemId,jdbcType=VARCHAR}
+        </if>
+        <if test="beginTime != null">
+            AND create_time &gt;= #{beginTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="endTime != null">
+            AND create_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+        </if>
+        GROUP BY install_site_id, robot_id LIMIT #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+    </select>
+
+    <select id="countRobotGroup" parameterType="java.util.Map"
+            resultType="java.lang.Integer">
+        SELECT count(T.robot_id) from
+        (SELECT
+        robot_id
+        FROM
+        way_robot_question_answer_log
+        where 1=1
+        <if test="subsystemId != null">
+            AND subsystem_id = #{subsystemId,jdbcType=VARCHAR}
+        </if>
+        <if test="beginTime != null">
+            AND create_time &gt;= #{beginTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="endTime != null">
+            AND create_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+        </if>
+        GROUP BY install_site_id, robot_id LIMIT #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}) T
+    </select>
+
+    <select id="listHotWord" parameterType="java.util.Map"
+            resultType="java.util.Map">
+        SELECT hot_word hotWord, hot_count hotCount from way_hot_word_record
+        where 1=1
+        <if test="subsystemId != null">
+            AND subsystem_id = #{subsystemId,jdbcType=VARCHAR}
+        </if>
+        <if test="beginTime != null">
+            AND create_time &gt;= #{beginTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="endTime != null">
+            AND create_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+        </if>
+        ORDER BY hot_count desc LIMIT 0,20
+    </select>
+
+
+</mapper>

@@ -1,6 +1,10 @@
 package com.zfk.entity;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable{
+	private static final long serialVersionUID = 1826978931489122577L;
+	
 	String id;
 	String name;
 	int age;

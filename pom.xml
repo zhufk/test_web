@@ -11,7 +11,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- spring版本号 -->
-		<spring.version>4.0.2.RELEASE</spring.version>
+		<spring.version>4.2.9.RELEASE</spring.version>
 		<!-- mybatis版本号 -->
 		<mybatis.version>3.2.6</mybatis.version>
 		<mybatis-spring.version>1.2.2</mybatis-spring.version>
@@ -90,7 +90,7 @@
 			<artifactId>spring-jdbc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-		
+		<!-- spring websocket -->
 		<dependency>
 		   <groupId>org.springframework</groupId>
 		   <artifactId>spring-websocket</artifactId>
@@ -215,6 +215,7 @@
 			<artifactId>jackson-annotations</artifactId>
 			<version>2.3.0</version>
 		</dependency>
+		
 		<!-- commons jar -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -351,13 +352,32 @@
 		</dependency>
 		<!-- ueditor end -->
 
+ 		<!-- config redis data and client jar--> 
+        <dependency>  
+            <groupId>org.springframework.data</groupId>  
+            <artifactId>spring-data-redis</artifactId>  
+            <version>1.7.6.RELEASE</version>
+        </dependency> 
 		<!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
 		<dependency>
 		    <groupId>redis.clients</groupId>
 		    <artifactId>jedis</artifactId>
 		    <version>2.9.0</version>
 		</dependency>
-
+		<!-- https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver -->
+		<dependency>
+		    <groupId>org.mongodb</groupId>
+		    <artifactId>mongo-java-driver</artifactId>
+		    <version>3.5.0</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.dom4j/dom4j -->
+		<dependency>
+		    <groupId>org.dom4j</groupId>
+		    <artifactId>dom4j</artifactId>
+		    <version>2.1.0</version>
+		</dependency>
+		
 	</dependencies>
 
 

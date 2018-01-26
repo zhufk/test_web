@@ -1,23 +1,15 @@
 package com.zfk.controller;
 
-import java.util.Map;
-
-import javax.annotation.Resource;
-
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zfk.entity.User;
-import com.zfk.redis.service.UserRedisService;
+import com.zfk.redis.RedisUtils;
 
 @Controller
 @RequestMapping("/redis")
 public class RedisController {
-
-	@Resource
-	UserRedisService userRedisService;
 
 	@RequestMapping({ "add" })
 	@ResponseBody
@@ -29,12 +21,12 @@ public class RedisController {
 		user.setName(name);
 		user.setAge(age);
 
-		return userRedisService.insertUser(user);
+		return RedisUtils.setObject(user.getId(), user);
 	}
 
 	@RequestMapping({ "get" })
 	@ResponseBody
-	public Object get(String id) {
-		return userRedisService.getUser(id);
+	public User get(String id) {
+		return (User) RedisUtils.getObject(id);
 	}
 }

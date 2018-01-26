@@ -44,7 +44,7 @@ public class MyWebSocketHandler implements WebSocketHandler {
 	 */
 	public static void sendMessageToUser(String userName, TextMessage message) {
 		for (WebSocketSession session : SessionSet) {
-			if (session.getHandshakeAttributes().get("userName").equals(userName)) {
+			if (session.getAttributes().get("userName").equals(userName)) {
 				try {
 					if (session.isOpen()) {
 						session.sendMessage(message);

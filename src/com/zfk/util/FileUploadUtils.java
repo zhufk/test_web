@@ -11,7 +11,6 @@ import com.zfk.base.constant.WayConsts;
 import com.zfk.base.entity.ResultData;
 import com.zfk.base.exceptoin.UncheckedException;
 import com.zfk.base.util.DateUtils;
-import com.zfk.base.util.FileUtils;
 import com.zfk.base.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <description>apache shiro配置</description>
+
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        <property name="loginUrl" value="/initLogin"/>
+        <property name="successUrl" value="/index"/>
+        <property name="unauthorizedUrl" value="/page/401"/>
+        <property name="filterChainDefinitions">
+            <value>
+                <!-- 测试不用认证 -->
+                <!-- /test/** = anon -->
+
+                <!-- 静态资源允许访问 -->
+                /static/** = anon
+                <!-- 登陆允许访问 -->
+                /initLogin = anon
+                /login = anon
+
+                <!-- 检查登录但是不需要检查权限的资源 -->
+                /page/** = authc
+                /index = authc
+                /logout/** = authc
+                /home/index = authc
+                /user/edit_pwd_view = authc
+                /user/edit_pwd = authc
+
+                <!-- 既要检查登录又要检查权限的资源 -->
+                /** = authc,permissionAuthc
+            </value>
+        </property>
+        <property name="filters">
+            <util:map>
+                <entry key="permissionAuthc" value-ref="permissionAuthcFilter"/>
+            </util:map>
+        </property>
+    </bean>
+
+    <!-- 权限过滤器 -->
+    <bean id="permissionAuthcFilter" class="com.gep.sys.filter.PermissionAuthcFilter">
+        <property name="unauthorizedUrl" value="/page/401"/>
+    </bean>
+
+    <!-- 缓存管理器 使用Spring Data Redis实现 -->
+    <bean id="shiroRedisManager" class="com.gep.core.cache.RedisCacheManager"/>
+
+    <!-- 单机session实现 -->
+    <bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.MemorySessionDAO">
+        <property name="sessionIdGenerator" ref="idGenerator"/>
+    </bean>
+    <!-- 集群session实现 -->
+    <bean id="redisShiroSessionDAO" class="com.gep.session.dao.RedisSessionDAO">
+        <property name="sessionIdGenerator" ref="idGenerator"/>
+    </bean>
+
+    <!-- 会话管理器 -->
+    <bean id="sessionManager" class="com.gep.session.manager.GEPWebSessionManager">
+        <!-- session超时时间设置为1小时 -->
+        <property name="globalSessionTimeout" value="3600000"></property>
+        <!-- 会话验证器调度时间 -->
+        <property name="sessionValidationInterval" value="1800000"/>
+        <!-- sessionIdCookie的实现,用于重写覆盖容器默认的JSESSIONID -->
+        <property name="sessionIdCookie" ref="gepsession"/>
+        <property name="sessionIdCookieEnabled" value="true"/>
+        <!-- 定时检查失效的session -->
+        <property name="sessionValidationSchedulerEnabled" value="true"/>
+        <!-- session存储的实现,可选用单机：sessionDAO，或者集群：redisShiroSessionDAO -->
+        <property name="sessionDAO" ref="redisShiroSessionDAO"/>
+    </bean>
+
+    <!-- 安全管理器 -->
+    <bean id="securityManager" class="com.gep.web.manager.GEPDefaultWebSecurityManager">
+        <property name="realm" ref="securityRealm"/>
+        <!-- cacheManager,集合Redis缓存工厂-->
+        <property name="cacheManager" ref="shiroRedisManager"/>
+
+        <property name="sessionManager" ref="sessionManager"/>
+    </bean>
+
+    <!-- sessionIdCookie的实现,用于重写覆盖容器默认的JSESSIONID -->
+    <bean id="gepsession" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <!-- cookie的name,对应的默认是 JSESSIONID -->
+        <constructor-arg name="name" value="DEMOSESSIONID"/>
+        <!-- jsessionId的path为 / 用于多个系统共享jsessionId -->
+        <property name="path" value="/"/>
+        <property name="httpOnly" value="true"/>
+        <!-- 本地不要开启，https访问才需要开启 -->
+        <!--         <property name="secure" value="true"/> -->
+    </bean>
+
+    <!-- Shiro生命周期处理器 -->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+</beans>

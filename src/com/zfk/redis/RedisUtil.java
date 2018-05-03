@@ -378,7 +378,7 @@ public class RedisUtil {
 	 *            值
 	 * @return true 存在 false不存在
 	 */
-	public boolean sHasKey(String key, Object value) {
+	public boolean sHasValue(String key, Object value) {
 		try {
 			return redisTemplate.opsForSet().isMember(key, value);
 		} catch (Exception e) {

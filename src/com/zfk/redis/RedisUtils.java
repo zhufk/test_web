@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -879,4 +880,106 @@ public class RedisUtils {
 	 * "countScanFromDB error", e); } return 0; }
 	 * 
 	 */
+
+	//////////////////////// set
+	public static Set<String> sGetSetFromDB(String templateName, final Integer db, final String key) {
+		if ((StringUtils.isBlank(key).booleanValue())) {
+			return null;
+		}
+		try {
+			Set<String> set = getRedisTemplate(templateName).execute(new RedisCallback<Set<String>>() {
+				public Set<String> doInRedis(RedisConnection connection) throws DataAccessException {
+					if (db != null) {
+						connection.select(db.intValue());
+					}
+					Set<String> reSet = new HashSet<String>();
+					Set<byte[]> setBytes = connection.sMembers(key.getBytes());
+					for (byte[] bs : setBytes) {
+						reSet.add(new String(bs));
+					}
+					return reSet;
+				}
+			});
+			return set;
+		} catch (Exception e) {
+			LOGGER.error("sGetSetFromDB error", e);
+		}
+		return null;
+	}
+
+	public static int sGetSizeFromDB(String templateName, final Integer db, final String key) {
+		if ((StringUtils.isBlank(key).booleanValue())) {
+			return 0;
+		}
+		try {
+			Long len = getRedisTemplate(templateName).execute(new RedisCallback<Long>() {
+				public Long doInRedis(RedisConnection connection) throws DataAccessException {
+					if (db != null) {
+						connection.select(db.intValue());
+					}
+					Long length = connection.sCard(key.getBytes());
+					return length;
+				}
+			});
+			return len.intValue();
+		} catch (Exception e) {
+			LOGGER.error("sGetSizeFromDB error", e);
+		}
+		return 0;
+	}
+
+	public static String sAddStringToDB(String templateName, final Integer db, final String key, final String value,
+			final long timeout) {
+		if ((StringUtils.isBlank(key).booleanValue()) || (value == null)) {
+			return null;
+		}
+		try {
+			String v = getRedisTemplate(templateName).execute(new RedisCallback<String>() {
+				public String doInRedis(RedisConnection connection) throws DataAccessException {
+					if (db != null) {
+						connection.select(db.intValue());
+					}
+					connection.sAdd(key.getBytes(), new byte[][] { value.getBytes() });
+					if (timeout > 0L) {
+						connection.expire(key.getBytes(), timeout);
+					}
+					return value;
+				}
+			});
+			return v;
+		} catch (Exception e) {
+			LOGGER.error("sAddStringToDB error", e);
+		}
+		return null;
+	}
+
+	public static int sAddAllStringToDB(String templateName, final Integer db, final String key, final Set<String> set,
+			final long timeout) {
+		if ((StringUtils.isBlank(key).booleanValue()) || (set.size() == 0)) {
+			return 0;
+		}
+		try {
+			Long len = getRedisTemplate(templateName).execute(new RedisCallback<Long>() {
+				public Long doInRedis(RedisConnection connection) throws DataAccessException {
+					if (db != null) {
+						connection.select(db.intValue());
+					}
+					byte[][] vByte = new byte[set.size()][];
+					int i = 0;
+					for (String s : set) {
+						vByte[i++] = s.getBytes();
+					}
+					Long length = connection.sAdd(key.getBytes(), vByte);
+					if (timeout > 0L) {
+						connection.expire(key.getBytes(), timeout);
+					}
+					return length;
+				}
+			});
+			return len.intValue();
+		} catch (Exception e) {
+			LOGGER.error("sAddAllStringToDB error", e);
+		}
+		return 0;
+	}
 }

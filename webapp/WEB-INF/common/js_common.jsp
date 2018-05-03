@@ -16,6 +16,7 @@
 <script src="${publicPath}/assets/js/bootstrap-datetimepicker.zh-CN.js"></script>
 <script src="${publicPath}/assets/js/bootstrap-table.js"></script>
 <script src="${publicPath}/assets/js/bootstrap-table-zh-CN.js"></script>
+<script src="${publicPath}/assets/js/bootstrap-treeview.js"></script>
 <script src="${publicPath}/assets/js/echarts.min.js"></script>
 <script src="${publicPath}/assets/js/select2.min.js"></script>
 
